@@ -5,8 +5,10 @@ import About from '../pages/About.vue';
 import Achievements from '../pages/Achievements.vue';
 import Resume from '../pages/Resume.vue';
 import Certificates from '../pages/Certificates.vue';
+import LandingPage from '../components/LandingPage.vue';
 
 const routes = [
+  { path: '/', component: LandingPage },         // Add LandingPage as the home route
   { path: '/home', component: Home },
   { path: '/skills', component: Skills },
   { path: '/about', component: About },
