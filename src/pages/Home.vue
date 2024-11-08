@@ -1,86 +1,110 @@
 <template>
-  <div class="p-20 space-y-6">
-    <h1 class="text-4xl font-bold mb-4 text-cyan-600 text-center">Project History</h1>
+  <!-- Made padding responsive and added max-width container -->
+  <div class="p-4 md:p-8 lg:p-20 max-w-7xl mx-auto space-y-4 md:space-y-6">
+    <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-cyan-600 text-center">Project History</h1>
 
-    <!-- First Row of up to 5 Project Cards -->
-    <div class="flex flex-wrap justify-center gap-4">
+    <!-- First Row of Projects - Made cards responsive -->
+    <div class="flex flex-wrap justify-center gap-3 md:gap-4">
       <div
         v-for="(project,) in projects.slice(0, 5)"
         :key="project.id"
-        class="relative group overflow-hidden rounded-lg shadow-lg w-80 h-80 flex-shrink-0 border-4 border-cyan-600 bg-transparent"
+        class="relative group overflow-hidden rounded-lg shadow-lg w-full sm:w-72 md:w-80 h-72 md:h-80 flex-shrink-0 border-4 border-cyan-600 bg-transparent"
       >
-        <!-- Centered Image Thumbnail -->
-        <div class="flex items-center justify-center h-full">
-          <img :src="project.image" alt="Project Thumbnail" class="h-40 object-cover rounded-lg">
+        <!-- Adjusted image container for better mobile display -->
+        <div class="flex items-center justify-center h-full p-2 md:p-0">
+          <img :src="project.image" alt="Project Thumbnail" class="h-32 md:h-40 object-cover rounded-lg">
         </div>
 
-        <!-- Overlay on hover -->
+        <!-- Made overlay text responsive -->
         <div class="absolute inset-0 bg-black bg-opacity-80 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <h2 class="text-white text-xl font-bold">{{ project.title }}</h2>
-          <p class="text-gray-200">{{ project.company }}</p>
-          <p class="text-gray-200">{{ project.date }}</p>
-          <!-- Stack section visible before hover -->
-          <div class="absolute bottom-2 left-2 right-2 bg-cyan-600 text-white px-2 py-1 rounded">
-            <strong>Stack:</strong> {{ project.stack.join(", ") }}
+          <h2 class="text-lg md:text-xl font-bold text-white px-2 text-center">{{ project.title }}</h2>
+          <p class="text-gray-200 text-sm md:text-base">{{ project.company }}</p>
+          <p class="text-gray-200 text-sm md:text-base">{{ project.date }}</p>
+          <!-- Updated stack display -->
+          <div class="absolute bottom-2 left-2 right-2 flex flex-wrap gap-1.5">
+            <span 
+              v-for="tech in project.stack" 
+              :key="tech" 
+              class="bg-cyan-600 text-white px-2 py-0.5 rounded-full text-sm md:text-base"
+            >
+              {{ tech }}
+            </span>
           </div>
-          <button @click="openDialog(project)" class="mt-4 px-4 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600">
+          <button @click="openDialog(project)" class="mt-4 px-3 py-1.5 md:px-4 md:py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600 text-sm md:text-base">
             View
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Additional Projects Row -->
-    <div v-if="projects.length > 5" class="flex flex-wrap justify-center gap-4 mt-6">
+    <!-- Additional Projects Row - Same responsive treatment -->
+    <div v-if="projects.length > 5" class="flex flex-wrap justify-center gap-3 md:gap-4 mt-4 md:mt-6">
       <div
         v-for="(project, ) in projects.slice(5)"
         :key="project.id"
-        class="relative group overflow-hidden rounded-lg shadow-lg w-80 h-80 flex-shrink-0 border-4 border-cyan-600 bg-transparent"
+        class="relative group overflow-hidden rounded-lg shadow-lg w-full sm:w-72 md:w-80 h-72 md:h-80 flex-shrink-0 border-4 border-cyan-600 bg-transparent"
       >
-        <!-- Centered Image Thumbnail -->
-        <div class="flex items-center justify-center h-full">
-          <img :src="project.image" alt="Project Thumbnail" class="h-40 object-cover rounded-lg">
+        <div class="flex items-center justify-center h-full p-2 md:p-0">
+          <img :src="project.image" alt="Project Thumbnail" class="h-32 md:h-40 object-cover rounded-lg">
         </div>
 
-        <!-- Overlay on hover -->
         <div class="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <h2 class="text-white text-xl font-bold">{{ project.title }}</h2>
-          <p class="text-gray-200">{{ project.company }}</p>
-          <p class="text-gray-200">{{ project.date }}</p>
-          <!-- Stack section visible before hover -->
-          <div class="absolute bottom-2 left-2 right-2 bg-cyan-600 text-white px-2 py-1 rounded">
-            <strong>Stack:</strong> {{ project.stack.join(", ") }}
+          <h2 class="text-lg md:text-xl font-bold text-white px-2 text-center">{{ project.title }}</h2>
+          <p class="text-gray-200 text-sm md:text-base">{{ project.company }}</p>
+          <p class="text-gray-200 text-sm md:text-base">{{ project.date }}</p>
+          <!-- Updated stack display -->
+          <div class="absolute bottom-2 left-2 right-2 flex flex-wrap gap-1.5">
+            <span 
+              v-for="tech in project.stack" 
+              :key="tech" 
+              class="bg-cyan-600 text-white  px-2 py-0.5 rounded-full text-xs md:text-base"
+            >
+              {{ tech }}
+            </span>
           </div>
-          <button @click="openDialog(project)" class="mt-4 px-4 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600">
+          <button @click="openDialog(project)" class="mt-4 px-3 py-1.5 md:px-4 md:py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600 text-sm md:text-base">
             View
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Modal Dialog -->
-    <div v-if="showDialog" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div class="bg-gray-800 p-6 rounded-lg max-w-6xl w-full shadow-lg relative border-4 border-cyan-600">
-        <!-- Close Button -->
-        <button @click="closeDialog" class="absolute top-2 right-6 text-cyan-500 hover:text-gray-600 text-xl"><strong>X</strong></button>
+    <!-- Modal Dialog - Made responsive -->
+    <div v-if="showDialog" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4 md:p-8">
+      <div class="bg-gray-800 p-4 md:p-6 rounded-lg w-full max-w-6xl max-h-[90vh] overflow-y-auto shadow-lg relative border-4 border-cyan-600">
+        <!-- Adjusted close button positioning -->
+        <button @click="closeDialog" class="absolute top-2 right-3 md:top-4 md:right-6 text-cyan-500 hover:text-gray-600 text-xl">
+          <strong>X</strong>
+        </button>
 
-        <h1 class="text-2xl font-bold text-white mb-2">{{ selectedProject.title }}</h1>
-        <img :src="selectedProject.project_image" class="w-full h-68 object-cover rounded-lg mb-4 border-2 border-cyan-600" alt="Project Image" />
-        <p class="text-white"><strong>Company:</strong> {{ selectedProject.company }}</p>
-        <p class="text-white">Start Date: {{ selectedProject.startDate }}</p>
-        <p class="text-white">End Date: {{ selectedProject.endDate }}</p>
-        <p class="mt-4 text-white"><strong>Role:</strong> {{ selectedProject.role }}</p>
+        <h1 class="text-xl md:text-2xl font-bold text-white mb-2">{{ selectedProject.title }}</h1>
+        <img :src="selectedProject.project_image" class="w-full h-auto object-cover rounded-lg mb-4 border-2 border-cyan-600" alt="Project Image" />
+        
+        <!-- Made text responsive -->
+        <p class="text-white text-sm md:text-lg"><strong>Company:</strong> {{ selectedProject.company }}</p>
+        <p class="mt-4 text-white text-sm md:text-lg" v-html="formattedDescription(selectedProject.description)"></p>
+        <p class="text-white text-sm md:text-lg"><strong>Start Date:</strong> {{ selectedProject.startDate }}</p>
+        <p class="text-white text-sm md:text-lg"><strong>End Date:</strong> {{ selectedProject.endDate }}</p>
+        <p class="mt-4 text-white text-sm md:text-lg"><strong>Role:</strong> {{ selectedProject.role }}</p>
 
-        <!-- Stack list in modal -->
-        <p class="mt-4 text-white"><strong>Tech Stack:</strong></p>
-        <ul class="flex flex-wrap gap-2 mt-2">
-          <li v-for="(tech, index) in selectedProject.stack" :key="index" class="px-2 py-1 bg-cyan-600 text-white rounded">
+        <p class="mt-4 text-white text-sm md:text-lg"><strong>Challenges:</strong></p>
+        <p class="text-white text-sm md:text-lg">{{ selectedProject.challenges }}</p>
+
+        <p class="mt-4 text-white text-sm md:text-lg"><strong>Solutions:</strong></p>
+        <p class="text-white text-sm md:text-lg">{{ selectedProject.solutions }}</p>
+
+        <p class="mt-4 text-white text-sm md:text-lg"><strong>Tech Stack:</strong></p>
+        <!-- Updated stack display in modal -->
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span 
+            v-for="(tech, index) in selectedProject.stack" 
+            :key="index"
+            class="bg-cyan-600 text-white  px-3 py-1 rounded-full text-sm md:text-base hover:bg-cyan-700 transition-colors"
+          >
             {{ tech }}
-          </li>
-        </ul>
+          </span>
+        </div>
 
-        <!-- Render Description with Bullet Points -->
-        <p class="mt-4 text-white" v-html="formattedDescription(selectedProject.description)"></p>
       </div>
     </div>
   </div>
@@ -101,12 +125,12 @@ export default {
           startDate: "Apr 2021", 
           endDate: "Jul 2021", 
           role: "Designer", 
-          description: `A project focused on UX/UI design for a mobile app.
-          - Designed user interfaces.
-          - Conducted user testing.`,
+          description: `A project focused on UX/UI design for a mobile app.`,
+          challenges: "The challenge was to design an intuitive interface for tracking multiple health metrics at once.",
+          solutions: "We streamlined the interface by categorizing metrics and using visual aids like graphs and charts to provide easy-to-understand data.",
           image: require('@/assets/savethechildern.png'), 
           project_image: require('@/assets/Prep.png'),
-          stack: ["Vue", "Googlesheet","Firebase"]
+          stack: ["Vue", "Googlesheet", "Firebase"]
         },
         { 
           id: 2, 
@@ -119,9 +143,11 @@ export default {
           description: `A project focused on UX/UI design for a mobile app.
           - Designed user interfaces.
           - Conducted user testing.`,
+          challenges: "The challenge was to design an intuitive interface for tracking multiple health metrics at once.",
+    solutions: "We streamlined the interface by categorizing metrics and using visual aids like graphs and charts to provide easy-to-understand data.",
           image: require('@/assets/savethechildern.png'), 
           project_image: require('@/assets/Prep.png'),
-          stack: ["Vue, Tailwind"]
+          stack: ["Vue", "Tailwind"]
         },
         { 
           id: 3, 
@@ -134,6 +160,8 @@ export default {
           description: `A project focused on UX/UI design for a mobile app.
           - Designed user interfaces.
           - Conducted user testing.`,
+          challenges: "The challenge was to design an intuitive interface for tracking multiple health metrics at once.",
+    solutions: "We streamlined the interface by categorizing metrics and using visual aids like graphs and charts to provide easy-to-understand data.",
           image: require('@/assets/ThePema.jpg'), 
           project_image: require('@/assets/Prep.png'),
           stack: ["Figma", "Vue", "JavaScript"]
@@ -149,9 +177,11 @@ export default {
           description: `A project focused on UX/UI design for a mobile app.
           - Designed user interfaces.
           - Conducted user testing.`,
+          challenges: "The challenge was to design an intuitive interface for tracking multiple health metrics at once.",
+    solutions: "We streamlined the interface by categorizing metrics and using visual aids like graphs and charts to provide easy-to-understand data.",
           image: require('@/assets/Tshongkha.jpg'),
           project_image: require('@/assets/Prep.png'), 
-          stack: ["Python, Odoo"]
+          stack: ["Python", "Odoo"]
         },
         { 
           id: 5, 
@@ -164,9 +194,11 @@ export default {
           description: `A project focused on UX/UI design for a mobile app.
           - Designed user interfaces.
           - Conducted user testing.`,
-          image: require('@/assets/Kuenjom.jpg'), 
+          challenges: "The challenge was to design an intuitive interface for tracking multiple health metrics at once.",
+    solutions: "We streamlined the interface by categorizing metrics and using visual aids like graphs and charts to provide easy-to-understand data.",
+          image: require('@/assets/k.png'), 
           project_image: require('@/assets/Prep.png'),
-          stack: ["Python, Odoo"]
+          stack: ["Python", "Odoo"]
         },
         { 
           id: 6, 
@@ -179,6 +211,8 @@ export default {
           description: `A project focused on UX/UI design for a mobile app.
           - Designed user interfaces.
           - Conducted user testing.`,
+          challenges: "The challenge was to design an intuitive interface for tracking multiple health metrics at once.",
+    solutions: "We streamlined the interface by categorizing metrics and using visual aids like graphs and charts to provide easy-to-understand data.",
           image: require('@/assets/DSP.jpeg'), 
           project_image: require('@/assets/Prep.png'),
           stack: ["Figma", "React", "JavaScript"]
@@ -194,8 +228,10 @@ export default {
           description: `A project focused on UX/UI design for a mobile app.
           - Designed user interfaces.
           - Conducted user testing.`,
+          challenges: "The challenge was to design an intuitive interface for tracking multiple health metrics at once.",
+    solutions: "We streamlined the interface by categorizing metrics and using visual aids like graphs and charts to provide easy-to-understand data.",
           image: require('@/assets/DSP.jpeg'), 
-          project_image: require('@/assets/Prep.png'), 
+          project_image: require('@/assets/facerecogniton.png'), 
           stack: ["MachineLearning", "Python", "JavaScript"]
         },
         { 
@@ -210,10 +246,11 @@ export default {
             - Developed frontend features.
             - Improved user experience.`,
           image: require('@/assets/Desung.jpeg'), 
+          challenges: "The challenge was to design an intuitive interface for tracking multiple health metrics at once.",
+    solutions: "We streamlined the interface by categorizing metrics and using visual aids like graphs and charts to provide easy-to-understand data.",
           project_image: require('@/assets/Prep.png'),
-          stack: ["Pandas", "webscraping", "Html, Bootrap"] 
+          stack: ["Pandas", "webscraping", "Html", "Bootrap"] 
         },
-        
       ],
       showDialog: false,
       selectedProject: null,
@@ -241,9 +278,5 @@ export default {
 </script>
 
 <style scoped>
-.card-container {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
+/* Scoped styles if needed */
 </style>

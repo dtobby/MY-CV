@@ -1,108 +1,170 @@
 <template>
-    <nav class="bg-transparent text-white p-4 fixed top-0 left-0 w-full z-10">
-      <div class="max-w-6xl mx-auto">
-        <!-- Centered Menu Items -->
-        <ul class="flex justify-center space-x-6 items-center">
-          <li>
-            <router-link
-              to="/home"
-              :class="['px-4 py-2 rounded-[12px]', activeLink === 'home' ? 'bg-cyan-600 text-white' : 'hover:bg-cyan-600 hover:text-white']"
-              class="transition-colors duration-300"
-              @click="setActiveLink('home')"
-            >
-              Home
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              to="/skills"
-              :class="['px-4 py-2 rounded-[12px]', activeLink === 'skills' ? 'bg-cyan-600 text-white' : 'hover:bg-cyan-600 hover:text-white']"
-              class="transition-colors duration-300"
-              @click="setActiveLink('skills')"
-            >
-              Skills
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              to="/about"
-              :class="['px-4 py-2 rounded-[12px]', activeLink === 'about' ? 'bg-cyan-600 text-white' : 'hover:bg-cyan-600 hover:text-white']"
-              class="transition-colors duration-300"
-              @click="setActiveLink('about')"
-            >
-              About
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              to="/achievements"
-              :class="['px-4 py-2 rounded-[12px]', activeLink === 'achievements' ? 'bg-cyan-600 text-white' : 'hover:bg-cyan-600 hover:text-white']"
-              class="transition-colors duration-300"
-              @click="setActiveLink('achievements')"
-            >
-              Achievements
-            </router-link>
-          </li>
-  
-          <!-- Dropdown Menu for Downloads -->
-          <li class="relative group">
+  <nav :class="['fixed top-0 left-0 w-full z-10 transition-all duration-500', 
+                'bg-black/90 backdrop-blur-sm']">
+    <div class="text-white max-w-6xl mx-auto px-4 py-2">
+      <!-- Main container with three columns -->
+      <div class="flex items-center justify-between sm:grid sm:grid-cols-3">
+        <!-- Logo / Brand Name (Left) -->
+        <div class="flex items-center">
+          <h1 class="text-2xl font-bold text-cyan-500 hover:text-cyan-400 transition-colors duration-300">DTOBY</h1>
+        </div>
+
+        <!-- Hamburger Icon (visible only on small screens) -->
+       <!-- Hamburger Icon with background and hover effects -->
+       <button @click="toggleMobileMenu" 
+                class="sm:hidden absolute right-4 p-2 rounded-lg 
+                       bg-black/90 backdrop-blur-sm
+                       hover:bg-black/80 focus:outline-none
+                       border border-gray-700/30
+                       transition-all duration-300 group">
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               class="h-6 w-6 text-cyan-500 group-hover:text-cyan-400 transition-colors duration-300" 
+               fill="none" 
+               viewBox="0 0 24 24" 
+               stroke="currentColor">
+            <path stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="2" 
+                  d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+
+        <!-- Centered Menu (hidden on mobile and shown on larger screens) -->
+        <div class="hidden  sm:block sm:col-span-1 justify-self-center">
+          <ul class="flex items-center space-x-6">
+            <li v-for="link in links" :key="link.name">
+              <router-link
+                :to="link.path"
+                :class="['px-4 py-2 rounded-[12px] transition-all duration-300', 
+                         activeLink === link.name ? 'bg-cyan-600/90 text-white' : 'hover:bg-cyan-600/80 hover:text-white']"
+                @click="setActiveLink(link.name)"
+              >
+                {{ link.name }}
+              </router-link>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Download Button (Right) -->
+        <div class="hidden sm:flex justify-end">
+          <div class="relative group" v-if="showDropdown">
             <button
-              :class="activeLink === 'download' ? 'bg-cyan-600 text-white' : 'hover:bg-cyan-600 hover:text-white'"
-              class="px-4 py-2 rounded-[12px] transition-colors duration-300"
-              @click="setActiveLink('download')"
+              :class="['px-4 py-2 rounded-[12px] transition-all duration-300',
+                       activeLink === 'download' ? 'bg-cyan-600/90 text-white' : 'hover:bg-cyan-600/80 hover:text-white']"
+              @click="toggleDropdown"
             >
               Download
             </button>
-            <ul class="absolute hidden group-hover:block bg-gray-700 text-white rounded-md mt-1" style="min-width: 150px">
+            <ul v-if="dropdownOpen" 
+                class="absolute right-0 bg-gray-900/95 backdrop-blur-sm text-white rounded-md mt-1 min-w-[150px] 
+                       border border-gray-700/50 shadow-lg">
               <li>
-                <router-link to="/resume" class="block px-4 py-2 hover:bg-cyan-600 rounded-[12px]">Resume</router-link>
+                <router-link to="/resume" 
+                            class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300">
+                  Resume
+                </router-link>
               </li>
               <li>
-                <router-link to="/certificates" class="block px-4 py-2 hover:bg-cyan-600 rounded-[12px]">Certificates</router-link>
+                <router-link to="/certificates" 
+                            class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300">
+                  Certificates
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu (Overlay) -->
+      <div v-if="showMobileMenu" 
+           class="sm:hidden absolute top-full left-0 w-full bg-black backdrop-blur-sm py-4 
+                  border-t border-gray-700/50">
+        <ul class="flex flex-col items-center space-y-4">
+          <li v-for="link in links" :key="link.name">
+            <router-link
+              :to="link.path"
+              :class="['px-4 py-2 rounded-[12px] transition-all duration-300',
+                       activeLink === link.name ? 'bg-cyan-600/90 text-white' : 'hover:bg-cyan-600/80 hover:text-white']"
+              @click="setActiveLink(link.name)"
+            >
+              {{ link.name }}
+            </router-link>
+          </li>
+          <!-- Mobile Download Button -->
+          <li class="relative" v-if="showDropdown">
+            <button
+              :class="['px-4 py-2 rounded-[12px] transition-all duration-300',
+                       activeLink === 'download' ? 'bg-cyan-600/90 text-white' : 'hover:bg-cyan-600/80 hover:text-white']"
+              @click="toggleDropdown"
+            >
+              Download
+            </button>
+            <ul v-if="dropdownOpen" 
+                class="mt-2 bg-gray-900/95 backdrop-blur-sm text-white rounded-md w-full 
+                       border border-gray-700/50">
+              <li>
+                <router-link to="/resume" 
+                            class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300">
+                  Resume
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/certificates" 
+                            class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300">
+                  Certificates
+                </router-link>
               </li>
             </ul>
           </li>
         </ul>
       </div>
-    </nav>
-  </template>
-  
-  <script>
-  export default {
-    name: "MyNavbar",
-    data() {
-      return {
-        activeLink: 'landing', // Set the default active link
-      };
+    </div>
+  </nav>
+</template>
+
+<script>
+export default {
+  name: "MyNavbar",
+  data() {
+    return {
+      activeLink: "home",
+      showMobileMenu: false,
+      dropdownOpen: false,
+      showDropdown: true,
+      links: [
+        { name: "Home", path: "/home" },
+        { name: "Skills", path: "/skills" },
+        { name: "About", path: "/about" },
+        { name: "Achievements", path: "/achievements" },
+      ],
+    };
+  },
+  methods: {
+    setActiveLink(link) {
+      this.activeLink = link;
+      this.showMobileMenu = false;
     },
-    methods: {
-      setActiveLink(link) {
-        this.activeLink = link;
-      },
+    toggleMobileMenu() {
+      this.showMobileMenu = !this.showMobileMenu;
+      this.dropdownOpen = false;
     },
-  };
-  </script>
-  
-  <style scoped>
-  nav {
-    background-color: transparent !important; /* Make navbar transparent */
-    box-shadow: none; /* Remove any shadow to keep it clean */
-    transition: background-color 0.3s ease; /* Add smooth transition effect */
+    toggleDropdown() {
+      this.dropdownOpen = !this.dropdownOpen;
+    },
+  },
+};
+</script>
+
+<style scoped>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+@media (min-width: 640px) {
+  .hidden-sm\:block {
+    display: block;
   }
-  
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
-  
-  /* Optional: Set a higher z-index so the navbar stays on top */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-  }
-  </style>
-  
+}
+</style>
