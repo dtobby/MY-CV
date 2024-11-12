@@ -1,6 +1,5 @@
 <template>
-  <nav :class="['fixed top-0 left-0 w-full z-10 transition-all duration-500', 
-                'bg-black/90 backdrop-blur-sm']">
+  <nav :class="['fixed top-0 left-0 w-full z-10 transition-all duration-500', 'bg-black/90 backdrop-blur-sm']">
     <div class="text-white max-w-6xl mx-auto px-4 py-2">
       <!-- Main container with three columns -->
       <div class="flex items-center justify-between sm:grid sm:grid-cols-3">
@@ -10,8 +9,7 @@
         </div>
 
         <!-- Hamburger Icon (visible only on small screens) -->
-       <!-- Hamburger Icon with background and hover effects -->
-       <button @click="toggleMobileMenu" 
+        <button @click="toggleMobileMenu" 
                 class="sm:hidden absolute right-4 p-2 rounded-lg 
                        bg-black/90 backdrop-blur-sm
                        hover:bg-black/80 focus:outline-none
@@ -30,7 +28,7 @@
         </button>
 
         <!-- Centered Menu (hidden on mobile and shown on larger screens) -->
-        <div class="hidden  sm:block sm:col-span-1 justify-self-center">
+        <div class="hidden sm:block sm:col-span-1 justify-self-center">
           <ul class="flex items-center space-x-6">
             <li v-for="link in links" :key="link.name">
               <router-link
@@ -60,13 +58,15 @@
                        border border-gray-700/50 shadow-lg">
               <li>
                 <router-link to="/resume" 
-                            class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300">
+                             class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300"
+                             @click="closeDropdown">
                   Resume
                 </router-link>
               </li>
               <li>
                 <router-link to="/certificates" 
-                            class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300">
+                             class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300"
+                             @click="closeDropdown">
                   Certificates
                 </router-link>
               </li>
@@ -104,13 +104,15 @@
                        border border-gray-700/50">
               <li>
                 <router-link to="/resume" 
-                            class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300">
+                             class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300"
+                             @click="closeDropdown">
                   Resume
                 </router-link>
               </li>
               <li>
                 <router-link to="/certificates" 
-                            class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300">
+                             class="block px-4 py-2 hover:bg-cyan-600/80 rounded-[12px] transition-colors duration-300"
+                             @click="closeDropdown">
                   Certificates
                 </router-link>
               </li>
@@ -151,20 +153,9 @@ export default {
     toggleDropdown() {
       this.dropdownOpen = !this.dropdownOpen;
     },
+    closeDropdown() {
+      this.dropdownOpen = false;
+    },
   },
 };
 </script>
-
-<style scoped>
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-@media (min-width: 640px) {
-  .hidden-sm\:block {
-    display: block;
-  }
-}
-</style>

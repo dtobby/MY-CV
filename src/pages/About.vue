@@ -88,7 +88,7 @@
 
       <!-- Right Column: Contact Me Form -->
       <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-white bg-opacity-60">
-        <h2 class="text-3xl font-semibold text-cyan-600 mb-4">Contact Me Directly</h2>
+        <h2 class="text-3xl font-semibold text-cyan-600 mb-4">Send Me a Message</h2>
 
         <!-- Name -->
         <div class="mb-4">
