@@ -59,7 +59,7 @@ export default {
         {
           name: "JavaScript",
           logo: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
-          rating: 9
+          rating: 8
         },
         {
           name: "Vue.js",
@@ -89,12 +89,12 @@ export default {
         {
           name: "Django",
           logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhIut2a3wq842_Ci2QPLL1x63ncLaeGMe-GUO03D7-hy1HEygXBlDqNC0bVf4MSIHWil8&usqp=CAU",
-          rating: 7
+          rating: 6
         },
         {
           name: "Google Sheets",
           logo: "https://qualitytraining.be/content/uploads/2022/07/formation-google-sheet-belgique.png",
-          rating: 9
+          rating: 8
         },
         {
           name: "Python",
@@ -114,7 +114,7 @@ export default {
         {
           name: "Odoo",
           logo: " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKHkAoDyKm-BSvZIdmOdmgSkEaRi-1H8Kaw&s",
-          rating: 7
+          rating: 8
         },
         {
           name: "SQL",
