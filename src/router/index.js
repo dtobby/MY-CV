@@ -15,7 +15,9 @@ const routes = [
   { path: '/achievements', component: Achievements },
   { path: '/resume', component: Resume },
   { path: '/certificates', component: Certificates },
+  { path: '/:pathMatch(.*)*', redirect: '/' },   // Catch-all fallback
 ];
+
 
 const router = createRouter({
   history: createWebHistory(),

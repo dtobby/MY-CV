@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- Digital animation overlay -->
     <div class="digital-overlay">
       <!-- Left to right streams -->
       <div v-for="i in 4" :key="`stream-right-${i}`" class="data-stream stream-right" :style="{
@@ -27,8 +28,16 @@
         }">
       </div>
     </div>
-    <MyNavbar />
-    <router-view />
+
+    <!-- Content container -->
+    <div class="content-container">
+      <MyNavbar />
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </div>
   </div>
 </template>
 
@@ -50,10 +59,16 @@ export default {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.content-container {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  position: relative;
-  overflow: hidden;
 }
 
 .digital-overlay {
@@ -65,7 +80,6 @@ export default {
   pointer-events: none;
   z-index: 1;
   overflow: hidden;
-  width: 100vw;
 }
 
 /* Base data streams */
@@ -174,11 +188,15 @@ export default {
   }
 }
 
-/* Ensure content stays above the overlay */
-MyNavbar,
-router-view {
-  position: relative;
-  z-index: 2;
+/* Route transition animations */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 /* Responsive adjustments */
@@ -195,4 +213,4 @@ router-view {
     animation-duration: 8s;
   }
 }
-</style>
+</style> 
