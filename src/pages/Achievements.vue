@@ -26,11 +26,22 @@ export default {
   data() {
     return {
       achievements: [
-        { title: "Completed Vue.js Course", description: "Completed an advanced Vue.js course...", date: "Jan 2023" },
-        { title: "Launched My Portfolio Website", description: "Built and launched my personal portfolio...", date: "Mar 2023" },
-        { title: "Contributed to Open-Source Project", description: "Contributed bug fixes and features to...", date: "Jul 2023" },
-        { title: "Published My First Blog Post", description: "Published a blog post about modern web...", date: "Oct 2023" },
-        { title: "Completed Node.js Backend Project", description: "Developed a backend for a web application...", date: "Dec 2023" }
+      
+      {
+    title: "Data Analytics",
+    description: "Successfully completed intensive data analytics training, mastering key tools and techniques including data visualization, statistical analysis, and predictive modeling. Transformed my passion into practical expertise through hands-on projects and real-world applications, strengthening my analytical thinking and problem-solving capabilities.",
+    date: "Jul 2023"
+},
+{
+    title: "Desuung Training",
+    description: "Proudly served as a Desuung (Guardian of Peace) volunteer during the COVID-19 pandemic, contributing to national security and public welfare for over one year. Participated in crucial activities including border control management, public safety initiatives, and community support programs. Developed strong leadership, teamwork, and crisis management skills while serving the nation.",
+    date: "March 2020"
+},
+{
+    title: "Sherubtse Student Leadership Programme",
+    description: "Participated in an intensive month-long leadership development program at Sherubtse College. Enhanced core leadership competencies including strategic thinking, effective communication, team management, and conflict resolution. Engaged in workshops, group projects, and practical exercises designed to foster leadership excellence and personal growth.",
+    date: "April 2018"
+}
       ],
     };
   },

@@ -160,7 +160,7 @@ export default {
       profile: {
         name: "Sonam Tobgay",
         profession: "Developer",
-        about: "An innovative and detail-oriented developer with 5+ years of experience in building web and mobile applications. Passionate about technology and problem-solving.",
+        about: "An innovative and detail-oriented developer with 3+ years of experience in building web and mobile applications. Passionate about technology and problem-solving.",
         picture: require('@/assets/dtoby.jpg'),
         contact: {
           email: "Sonamt566@gmail.com",
@@ -173,8 +173,12 @@ export default {
           year: "2014"
         },
         certifications: [
-          { title: "AWS Certified Developer", issuer: "Amazon Web Services", year: "2023" },
-          { title: "Full-Stack Web Development", issuer: "Coursera", year: "2021" }
+          { title: "SAP Certified Application Associate - SAP Ariba Contracts 2023", issuer: "SAP", year: "2024" },
+          { title: "MLops in Practise:Developing , Deployingand Managing ML Model in cloud", issuer: "GovTech and Omdena", year: "2023" },    
+          { title: "Mastering Odoo Developement - Technical Fundamentals", issuer: "Udemy", year: "2022" },    
+          { title: "Essential Data science Building Blocks Course", issuer: "DHI and Omdena", year: "2022" },    
+          { title: "Intermediate Python", issuer: "Data Camp", year: "2022" },
+          { title: "Data Analytics ", issuer: "IBM and Coursera", year: "2022" },
         ],
         hobbies: ["Coding", "Photography", "Traveling", "Reading", "Football"]
       },
