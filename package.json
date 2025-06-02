@@ -7,6 +7,10 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "engines": {
+    "node": ">=20.0.0 <21.0.0",
+    "yarn": ">=1.22.0"
+  },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "core-js": "^3.8.3",

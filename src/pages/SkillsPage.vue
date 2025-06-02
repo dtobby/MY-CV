@@ -37,6 +37,21 @@ export default {
     return {
       skills: [
         {
+          name: "Next.js",
+          logo: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
+          rating: 5
+        },
+        {
+          name: "Phoenix",
+          logo: "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/254_Phoenix_Framework_logo-512.png",
+          rating: 5
+        },
+        {
+          name: "Elixir",
+          logo: "https://upload.wikimedia.org/wikipedia/commons/9/92/Official_Elixir_logo.png",
+          rating: 5
+        },
+        {
           name: "HTML",
           logo: "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg",
           rating: 9

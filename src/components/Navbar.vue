@@ -51,7 +51,7 @@
                        activeLink === 'download' ? 'bg-cyan-600/90 text-white' : 'hover:bg-cyan-600/80 hover:text-white']"
               @click="toggleDropdown"
             >
-              Download
+              Resume / Certificates
             </button>
             <ul v-if="dropdownOpen" 
                 class="absolute right-0 bg-gray-900/95 backdrop-blur-sm text-white rounded-md mt-1 min-w-[150px] 
