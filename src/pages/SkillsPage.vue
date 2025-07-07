@@ -3,27 +3,13 @@
     <h1 class="text-4xl font-bold mb-4 text-cyan-600 text-center">Skills</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <!-- Skill Cards -->
-      <div
-        v-for="(skill, index) in skills"
-        :key="index"
-        class="flex flex-col items-center bg-gray-800 p-6 rounded-lg shadow-lg text-white bg-opacity-60"
-      >
-        <!-- Skill Logo -->
+      <div v-for="(skill, index) in skills" :key="index"
+        class="flex flex-col items-center bg-gray-800 p-6 rounded-lg shadow-lg text-white bg-opacity-60">
         <img :src="skill.logo" alt="Tech Logo" class="w-16 h-16 mb-4" />
-
-        <!-- Skill Name -->
         <h2 class="text-xl font-bold mb-2">{{ skill.name }}</h2>
-
-        <!-- Progress Bar -->
         <div class="w-full bg-gray-600 rounded-full h-2 mb-4">
-          <div
-            :style="{ width: skill.rating * 10 + '%' }"
-            class="bg-cyan-600 h-full rounded-full"
-          ></div>
+          <div :style="{ width: skill.rating * 10 + '%' }" class="bg-cyan-600 h-full rounded-full"></div>
         </div>
-        
-        <!-- Rating -->
         <p class="text-sm text-gray-300">{{ skill.rating }} / 10</p>
       </div>
     </div>
@@ -142,6 +128,4 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Optional: Custom styles for skill cards */
-</style>
+<style scoped></style>
