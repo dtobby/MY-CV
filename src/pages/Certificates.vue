@@ -86,7 +86,9 @@ import { jsPDF } from 'jspdf'
 import Django1 from '@/assets/Django/Certificate_of_Django.jpg'
 
 // API
-import api1 from '@/assets/API/Designing RESTful Web APIs.jpg'
+import api1 from '@/assets/API/Specialized Testing API Testing.jpg'
+import api2 from '@/assets/API/Designing RESTful Web APIs.jpg'
+import api3 from '@/assets/API/api_security_fundamental.png'
 
 // Database
 import DB1 from '@/assets/database/certificate_of_intermediate_SQL.jpg'
@@ -171,7 +173,7 @@ export default {
       ],
       imageMap: {
         Django: [Django1],
-        API: [api1],
+        API: [api3, api2, api1],
         Database: [DB1, DB2, DB3, DB4],
         Git: [git0, git1, git2, git3, git4, git5, git6, git7],
         'HTML & CSS': [html_css0, html_css1, html_css2, html_css3, html_css4],
