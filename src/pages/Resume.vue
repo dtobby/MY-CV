@@ -177,6 +177,11 @@ export default {
     async downloadPDF() {
       this.loading = true
       const element = document.getElementById('resume-container')
+      const savedScrollY = window.scrollY
+
+      // Scroll to top so html2canvas captures the element from position 0
+      window.scrollTo(0, 0)
+      await new Promise(resolve => setTimeout(resolve, 120))
 
       try {
         const canvas = await html2canvas(element, {
@@ -184,12 +189,31 @@ export default {
           useCORS: true,
           allowTaint: true,
           logging: false,
-          letterRendering: true,
-          width: element.scrollWidth,
+          scrollX: 0,
+          scrollY: 0,
+          width: element.offsetWidth,
           height: element.scrollHeight,
           windowWidth: 1200,
-          windowHeight: element.scrollHeight,
-          backgroundColor: '#ffffff'
+          backgroundColor: '#ffffff',
+          onclone: (clonedDoc) => {
+            const cloned = clonedDoc.getElementById('resume-container')
+            if (!cloned) return
+            // Fix system font — html2canvas misrenders -apple-system/BlinkMacSystemFont
+            // causing words to collapse together. Arial renders reliably.
+            cloned.style.fontFamily = 'Arial, Helvetica, sans-serif'
+            cloned.style.width = element.offsetWidth + 'px'
+            cloned.style.maxWidth = 'none'
+            cloned.style.overflow = 'visible'
+            clonedDoc.querySelectorAll('#resume-container *').forEach(node => {
+              node.style.fontFamily = 'Arial, Helvetica, sans-serif'
+              node.style.wordSpacing = 'normal'
+              node.style.letterSpacing = 'normal'
+            })
+            // justify causes uneven spacing in html2canvas — left-align for capture only
+            clonedDoc.querySelectorAll('.about-text').forEach(el => {
+              el.style.textAlign = 'left'
+            })
+          }
         })
 
         const pdf = new jsPDF('p', 'mm', 'a4')
@@ -204,14 +228,21 @@ export default {
         let position = 0
         let pageCount = 0
 
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight, '', 'FAST')
+        const addPage = (pos) => {
+          // White fill prevents dark band showing at page boundaries
+          pdf.setFillColor(255, 255, 255)
+          pdf.rect(0, 0, pageWidth, pageHeight, 'F')
+          pdf.addImage(imgData, 'JPEG', 0, pos, imgWidth, imgHeight, '', 'FAST')
+        }
+
+        addPage(position)
         heightLeft -= pageHeight
         pageCount++
 
         while (heightLeft > 0) {
           position = -(pageHeight * pageCount)
           pdf.addPage()
-          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight, '', 'FAST')
+          addPage(position)
           heightLeft -= pageHeight
           pageCount++
         }
@@ -220,15 +251,17 @@ export default {
           title: 'Resume - Sonam Tobgay',
           subject: 'Software Engineer Resume',
           author: 'Sonam Tobgay',
-          keywords: 'resume, cv, developer, software engineer, python, javascript, vue, react, elixir, django, phoenix, data analysis',
-          creator: 'Sonam Tobgay - Resume Generator'
+          keywords: 'resume, cv, software engineer',
+          creator: 'Sonam Tobgay'
         })
 
         pdf.save('Sonam-Tobgay-Resume.pdf')
       } catch (error) {
         console.error('PDF generation failed:', error)
-        alert('Failed to generate PDF. Please check the console for errors and try again.')
+        alert('Failed to generate PDF. Please try again.')
       } finally {
+        // Always restore scroll so the UI is not left broken
+        window.scrollTo(0, savedScrollY)
         this.loading = false
       }
     }
