@@ -19,14 +19,14 @@ This is a **Vue 3 personal CV/portfolio site** built with Vue CLI, Vue Router, a
 
 ### Routing (`src/router/index.js`)
 
-| Path | Component |
-|------|-----------|
-| `/` | `LandingPage.vue` (entry animation/intro) |
-| `/home` | `Home.vue` (project cards grid) |
-| `/skills` | `SkillsPage.vue` |
-| `/about` | `About.vue` |
-| `/achievements` | `Achievements.vue` (timeline) |
-| `/resume` | `Resume.vue` (PDF-downloadable resume) |
+| Path            | Component                                  |
+| --------------- | ------------------------------------------ |
+| `/`             | `LandingPage.vue` (entry animation/intro)  |
+| `/home`         | `Home.vue` (project cards grid)            |
+| `/skills`       | `SkillsPage.vue`                           |
+| `/about`        | `About.vue`                                |
+| `/achievements` | `Achievements.vue` (timeline)              |
+| `/resume`       | `Resume.vue` (PDF-downloadable resume)     |
 | `/certificates` | `Certificates.vue` (slideshow by category) |
 
 All unmatched routes redirect to `/`.
@@ -50,3 +50,5 @@ Place images under the appropriate subfolder in `src/assets/` (e.g. `src/assets/
 ### Styling
 
 Tailwind utility classes are used throughout. Global styles and the Tailwind base are in `src/assets/tailwind.css`. The design language uses `cyan-500`/`cyan-600` as the primary accent colour and `gray-800`/`gray-900` for dark card surfaces.
+
+### it is deployed in vercel for free

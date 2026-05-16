@@ -117,7 +117,6 @@
 </template>
 
 <script>
-import emailjs from '@emailjs/browser';
 import { Github, Mail, MessageCircle } from 'lucide-vue-next';
 
 export default {
@@ -173,32 +172,38 @@ export default {
         return;
       }
 
-      this.loading = true; // Set loading to true when sending starts
-      this.status = { message: "", success: false }; // Clear status message
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(this.contactForm.email)) {
+        this.status = { message: "Please enter a valid email address.", success: false };
+        return;
+      }
+
+      this.loading = true;
+      this.status = { message: "", success: false };
 
       try {
-        const response = await emailjs.send(
-          'service_1sf42qo',
-          'template_rl9goik',
-          {
-            to_name: 'Dtoby',
-            from_name: this.contactForm.name,
-            from_email: this.contactForm.email,
-            message: this.contactForm.message
-          },
-          'bE3ymAjheCHGcAmjf'
-        );
+        const response = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: this.contactForm.name,
+            email: this.contactForm.email,
+            message: this.contactForm.message,
+          }),
+        });
 
-        console.log(response);
-        this.status = { message: "Message sent successfully!", success: true };
-        this.contactForm.name = "";
-        this.contactForm.email = "";
-        this.contactForm.message = "";
+        const data = await response.json();
+
+        if (response.ok) {
+          this.status = { message: "Message sent successfully!", success: true };
+          this.contactForm = { name: "", email: "", message: "" };
+        } else {
+          this.status = { message: data.error || "Failed to send message. Please try again.", success: false };
+        }
       } catch (error) {
         this.status = { message: "Failed to send message. Please try again.", success: false };
-        console.error("Error in sending message:", error);
       } finally {
-        this.loading = false; // Reset loading state after sending is complete
+        this.loading = false;
       }
     }
   }
