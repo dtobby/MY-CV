@@ -213,27 +213,33 @@ export default {
         // ── HEADER ────────────────────────────────────────────────
         fill(C.hdrBg)
         pdf.rect(0, 0, PW, HDR, 'F')
+        // Left accent bar
         fill(C.hdrAccent)
-        pdf.rect(0, HDR - 2, PW, 2, 'F')
+        pdf.rect(0, 0, 3, HDR, 'F')
+        // Bottom accent stripe
+        fill(C.hdrAccent)
+        pdf.rect(0, HDR - 1.5, PW, 1.5, 'F')
 
         color(C.white)
         pdf.setFont('helvetica', 'bold')
-        pdf.setFontSize(24)
-        pdf.text('Sonam Tobgay', M, 18)
+        pdf.setFontSize(26)
+        pdf.text('Sonam Tobgay', M + 5, 19)
 
         pdf.setFont('helvetica', 'normal')
         pdf.setFontSize(11)
         color(C.cyanPale)
-        pdf.text('Software Engineer', M, 27)
+        pdf.text('Software Engineer', M + 5, 28)
 
+        // Contact — single line with bullet separators
+        const contactItems = [
+          'sonamt566@gmail.com',
+          '(+975) 16922982',
+          'github.com/dtobby',
+          'Thimphu, Bhutan',
+        ]
         pdf.setFontSize(8)
         color(C.white)
-        pdf.text('Email: sonamt566@gmail.com', M, 36)
-        pdf.text('Phone: (+975) 16922982', M + 68, 36)
-        pdf.text('Location: Thimphu, Bhutan', M + 128, 36)
-        pdf.setFontSize(7.5)
-        color(C.cyanPale)
-        pdf.text('GitHub: github.com/dtobby', M, 41)
+        pdf.text(contactItems.join('   •   '), M + 5, 38)
 
         // ── HELPERS ───────────────────────────────────────────────
         const sectionTitle = (x, y, w, label) => {
