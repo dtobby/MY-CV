@@ -141,7 +141,6 @@
 
 <script>
 import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
 import experience from '@/data/Experience'
 import trainings from '@/data/Trainings'
 
@@ -174,85 +173,234 @@ export default {
     }
   },
   methods: {
-    async downloadPDF() {
+    downloadPDF() {
       this.loading = true
-      const element = document.getElementById('resume-container')
-      const savedScrollY = window.scrollY
-
-      // Scroll to top so html2canvas captures the element from position 0
-      window.scrollTo(0, 0)
-      await new Promise(resolve => setTimeout(resolve, 120))
-
       try {
-        const canvas = await html2canvas(element, {
-          scale: 1.5,
-          useCORS: true,
-          allowTaint: true,
-          logging: false,
-          scrollX: 0,
-          scrollY: 0,
-          width: element.offsetWidth,
-          height: element.scrollHeight,
-          windowWidth: 1200,
-          backgroundColor: '#ffffff',
-          onclone: (clonedDoc) => {
-            const cloned = clonedDoc.getElementById('resume-container')
-            if (!cloned) return
-            // Fix system font — html2canvas misrenders -apple-system/BlinkMacSystemFont
-            // causing words to collapse together. Arial renders reliably.
-            cloned.style.fontFamily = 'Arial, Helvetica, sans-serif'
-            cloned.style.width = element.offsetWidth + 'px'
-            cloned.style.maxWidth = 'none'
-            cloned.style.overflow = 'visible'
-            clonedDoc.querySelectorAll('#resume-container *').forEach(node => {
-              node.style.fontFamily = 'Arial, Helvetica, sans-serif'
-              node.style.wordSpacing = 'normal'
-              node.style.letterSpacing = 'normal'
-            })
-            // justify causes uneven spacing in html2canvas — left-align for capture only
-            clonedDoc.querySelectorAll('.about-text').forEach(el => {
-              el.style.textAlign = 'left'
-            })
+        const pdf = new jsPDF('p', 'mm', 'a4')
+        const sf = pdf.internal.scaleFactor  // pts/mm
+
+        // Layout constants
+        const PW = 210, PH = 297
+        const M = 13
+        const LW = 65
+        const GAP = 6
+        const RX = M + LW + GAP
+        const RW = PW - RX - M
+        const HDR = 44
+        const BODY_TOP = HDR + 8
+        const PAGE_BOT = PH - 10
+
+        // Colors
+        const C = {
+          hdrBg:      [15, 76, 96],
+          hdrAccent:  [8, 145, 178],
+          cyanPale:   [207, 250, 254],
+          cyanPaleTx: [21, 94, 117],
+          greenPale:  [209, 250, 229],
+          greenPaleTx:[6, 95, 70],
+          white:      [255, 255, 255],
+          dark:       [31, 41, 55],
+          med:        [55, 65, 81],
+          body:       [75, 85, 99],
+          muted:      [107, 114, 128],
+          cyan:       [8, 145, 178],
+          divider:    [226, 232, 240],
+        }
+        const fill   = c => pdf.setFillColor(...c)
+        const stroke = c => pdf.setDrawColor(...c)
+        const color  = c => pdf.setTextColor(...c)
+
+        // ── HEADER ────────────────────────────────────────────────
+        fill(C.hdrBg)
+        pdf.rect(0, 0, PW, HDR, 'F')
+        fill(C.hdrAccent)
+        pdf.rect(0, HDR - 2, PW, 2, 'F')
+
+        color(C.white)
+        pdf.setFont('helvetica', 'bold')
+        pdf.setFontSize(24)
+        pdf.text('Sonam Tobgay', M, 18)
+
+        pdf.setFont('helvetica', 'normal')
+        pdf.setFontSize(11)
+        color(C.cyanPale)
+        pdf.text('Software Engineer', M, 27)
+
+        pdf.setFontSize(8)
+        color(C.white)
+        pdf.text('Email: sonamt566@gmail.com', M, 36)
+        pdf.text('Phone: (+975) 16922982', M + 68, 36)
+        pdf.text('Location: Thimphu, Bhutan', M + 128, 36)
+        pdf.setFontSize(7.5)
+        color(C.cyanPale)
+        pdf.text('GitHub: github.com/dtobby', M, 41)
+
+        // ── HELPERS ───────────────────────────────────────────────
+        const sectionTitle = (x, y, w, label) => {
+          pdf.setFont('helvetica', 'bold')
+          pdf.setFontSize(8.5)
+          color(C.dark)
+          pdf.text(label.toUpperCase(), x, y)
+          pdf.setLineWidth(0.5)
+          stroke(C.cyan)
+          pdf.line(x, y + 1.5, x + w, y + 1.5)
+          return y + 7.5
+        }
+
+        const drawTags = (x, startY, maxW, tags, bgC, txC) => {
+          const fSize = 6.5
+          pdf.setFont('helvetica', 'normal')
+          pdf.setFontSize(fSize)
+          const tagH = 4.5, padX = 2.5, rowH = 7.5, gap = 2
+          let cx = x, y = startY
+          tags.forEach(tag => {
+            const tw = (pdf.getStringUnitWidth(tag) * fSize) / sf + padX * 2
+            if (cx + tw > x + maxW) { cx = x; y += rowH }
+            fill(bgC)
+            pdf.roundedRect(cx, y - 3.5, tw, tagH, 0.8, 0.8, 'F')
+            color(txC)
+            pdf.text(tag, cx + padX, y)
+            cx += tw + gap
+          })
+          return y + rowH
+        }
+
+        // ── LEFT COLUMN ───────────────────────────────────────────
+        let ly = BODY_TOP
+
+        ly = sectionTitle(M, ly, LW, 'Technical Skills')
+        ly = drawTags(M, ly, LW, this.skills.technical, C.cyanPale, C.cyanPaleTx)
+        ly += 3
+
+        pdf.setFont('helvetica', 'bold')
+        pdf.setFontSize(7.5)
+        color(C.med)
+        pdf.text('Functional & Professional', M, ly)
+        ly += 5.5
+        ly = drawTags(M, ly, LW, this.skills.functional, C.greenPale, C.greenPaleTx)
+        ly += 5
+
+        ly = sectionTitle(M, ly, LW, 'Education')
+        const edus = [
+          { school: 'Dungsam Academy', detail: 'Higher Secondary (Grade 12)', year: 'Completed: 2014' },
+          { school: 'Samdrup Jongkhar Middle Secondary School', detail: 'Secondary (Grade 10)', year: 'Completed: 2012' },
+        ]
+        edus.forEach(edu => {
+          pdf.setFont('helvetica', 'bold')
+          pdf.setFontSize(8)
+          color(C.dark)
+          pdf.splitTextToSize(edu.school, LW).forEach(l => { pdf.text(l, M, ly); ly += 4 })
+          ly += 0.5
+          pdf.setFont('helvetica', 'normal')
+          pdf.setFontSize(7.5)
+          color(C.body)
+          pdf.text(edu.detail, M, ly)
+          ly += 4
+          color(C.muted)
+          pdf.text(edu.year, M, ly)
+          ly += 7
+        })
+
+        // ── RIGHT COLUMN ──────────────────────────────────────────
+        let ry = BODY_TOP
+
+        const newPage = () => { pdf.addPage(); ry = M + 5 }
+        const checkPage = needed => { if (ry + needed > PAGE_BOT) newPage() }
+
+        // About Me
+        ry = sectionTitle(RX, ry, RW, 'About Me')
+        pdf.setFont('helvetica', 'normal')
+        pdf.setFontSize(8.5)
+        color(C.med)
+        const aboutText = 'Results-driven Software Engineer with 5+ years of hands-on experience designing, developing, and deploying full-stack web applications across government, non-profit, and private sectors. Proficient in Python/Django, JavaScript/Vue.js/React, and Elixir/Phoenix, with strong experience in RESTful API development, relational database design, microservices architecture, and test-driven development. Demonstrated ability to lead end-to-end project lifecycles from requirements gathering through deployment and client handover.'
+        pdf.splitTextToSize(aboutText, RW).forEach(l => { pdf.text(l, RX, ry); ry += 4.2 })
+        ry += 4
+
+        // Work Experience
+        checkPage(20)
+        ry = sectionTitle(RX, ry, RW, 'Work Experience')
+
+        this.experience.forEach((job, idx) => {
+          checkPage(14)
+
+          pdf.setFont('helvetica', 'bold')
+          pdf.setFontSize(8.5)
+          color(C.dark)
+          pdf.text(job.title, RX, ry)
+
+          pdf.setFont('helvetica', 'normal')
+          pdf.setFontSize(7)
+          color(C.muted)
+          pdf.text(job.period, RX + RW, ry, { align: 'right' })
+          ry += 4.5
+
+          pdf.setFont('helvetica', 'bold')
+          pdf.setFontSize(7.5)
+          color(C.cyan)
+          pdf.text(job.company, RX, ry)
+          ry += 4.5
+
+          pdf.setFont('helvetica', 'normal')
+          pdf.setFontSize(7.5)
+          color(C.body)
+          job.achievements.forEach(ach => {
+            const achLines = pdf.splitTextToSize('• ' + ach, RW - 2)
+            checkPage(achLines.length * 3.8)
+            achLines.forEach(l => { pdf.text(l, RX + 1.5, ry); ry += 3.8 })
+            ry += 0.8
+          })
+
+          ry += 2
+          if (idx < this.experience.length - 1) {
+            stroke(C.divider)
+            pdf.setLineWidth(0.2)
+            pdf.line(RX, ry - 1, RX + RW, ry - 1)
           }
         })
 
-        const pdf = new jsPDF('p', 'mm', 'a4')
-        const pageWidth = pdf.internal.pageSize.getWidth()
-        const pageHeight = pdf.internal.pageSize.getHeight()
+        // Training & Certifications
+        checkPage(20)
+        ry += 2
+        ry = sectionTitle(RX, ry, RW, 'Training & Certifications')
 
-        const imgWidth = pageWidth
-        const imgHeight = (canvas.height * imgWidth) / canvas.width
-        const imgData = canvas.toDataURL('image/jpeg', 0.95)
+        this.trainings.forEach(t => {
+          checkPage(14)
+          pdf.setFont('helvetica', 'bold')
+          pdf.setFontSize(8)
+          color(C.dark)
+          pdf.splitTextToSize(t.title, RW).forEach(l => { pdf.text(l, RX, ry); ry += 4 })
+          ry += 0.5
+          pdf.setFont('helvetica', 'normal')
+          pdf.setFontSize(7.5)
+          color(C.cyan)
+          pdf.text(t.institution, RX, ry)
+          ry += 4
+          color(C.muted)
+          pdf.text(t.period, RX, ry)
+          ry += 7
+        })
 
-        let heightLeft = imgHeight
-        let position = 0
-        let pageCount = 0
-
-        const addPage = (pos) => {
-          // White fill prevents dark band showing at page boundaries
-          pdf.setFillColor(255, 255, 255)
-          pdf.rect(0, 0, pageWidth, pageHeight, 'F')
-          pdf.addImage(imgData, 'JPEG', 0, pos, imgWidth, imgHeight, '', 'FAST')
-        }
-
-        addPage(position)
-        heightLeft -= pageHeight
-        pageCount++
-
-        while (heightLeft > 0) {
-          position = -(pageHeight * pageCount)
-          pdf.addPage()
-          addPage(position)
-          heightLeft -= pageHeight
-          pageCount++
+        // ── COLUMN DIVIDER + PAGE NUMBERS ─────────────────────────
+        const totalPages = pdf.internal.getNumberOfPages()
+        for (let p = 1; p <= totalPages; p++) {
+          pdf.setPage(p)
+          if (p === 1) {
+            stroke(C.divider)
+            pdf.setLineWidth(0.3)
+            pdf.line(M + LW + GAP / 2, BODY_TOP, M + LW + GAP / 2, PH - 10)
+          }
+          pdf.setFont('helvetica', 'normal')
+          pdf.setFontSize(7)
+          color(C.muted)
+          pdf.text(`${p} / ${totalPages}`, PW - M, PH - 5, { align: 'right' })
         }
 
         pdf.setProperties({
           title: 'Resume - Sonam Tobgay',
           subject: 'Software Engineer Resume',
           author: 'Sonam Tobgay',
-          keywords: 'resume, cv, software engineer',
-          creator: 'Sonam Tobgay'
+          keywords: 'resume, software engineer, Bhutan',
+          creator: 'Sonam Tobgay',
         })
 
         pdf.save('Sonam-Tobgay-Resume.pdf')
@@ -260,8 +408,6 @@ export default {
         console.error('PDF generation failed:', error)
         alert('Failed to generate PDF. Please try again.')
       } finally {
-        // Always restore scroll so the UI is not left broken
-        window.scrollTo(0, savedScrollY)
         this.loading = false
       }
     }
