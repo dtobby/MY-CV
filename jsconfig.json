@@ -14,7 +14,6 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ],
-    "ignoreDeprecations": "6.0"
+    ]
   }
 }
