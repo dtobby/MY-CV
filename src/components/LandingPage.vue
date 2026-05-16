@@ -1,5 +1,17 @@
 <template>
   <div class="hero">
+
+    <!-- Social sidebar -->
+    <div class="social-sidebar">
+      <div class="sidebar-line sidebar-line--top"></div>
+      <a v-for="s in socials" :key="s.label"
+        :href="s.url" target="_blank" rel="noopener noreferrer"
+        :aria-label="s.label" class="social-icon-btn">
+        <component :is="s.icon" class="sidebar-icon" />
+      </a>
+      <div class="sidebar-line sidebar-line--bottom"></div>
+    </div>
+
     <div class="hero-content">
       <!-- Profile photo -->
       <div class="avatar-wrap">
@@ -50,10 +62,19 @@
 </template>
 
 <script>
+import { Facebook, Linkedin, Instagram, Github } from 'lucide-vue-next';
+
 export default {
   name: 'LandingPage',
+  components: { Facebook, Linkedin, Instagram, Github },
   data() {
     return {
+      socials: [
+        { label: 'Facebook',  icon: 'Facebook',  url: 'https://www.facebook.com/' },
+        { label: 'LinkedIn',  icon: 'Linkedin',  url: 'https://www.linkedin.com/in/sonam-tobgay/' },
+        { label: 'Instagram', icon: 'Instagram', url: 'https://www.instagram.com/' },
+        { label: 'GitHub',    icon: 'Github',    url: 'https://github.com/dtobby' },
+      ],
       roles: [
         'Full Stack Developer',
         'Vue.js Specialist',
@@ -303,5 +324,61 @@ export default {
 @keyframes scroll-bounce {
   0%, 100% { transform: translateY(0); opacity: 1; }
   50% { transform: translateY(10px); opacity: 0.3; }
+}
+
+/* Social sidebar */
+.social-sidebar {
+  position: fixed;
+  right: 1.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 20;
+}
+
+.sidebar-line {
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.4));
+}
+.sidebar-line--top {
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.4));
+}
+.sidebar-line--bottom {
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(6, 182, 212, 0.4), transparent);
+}
+
+.social-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  color: #475569;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+  transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+  text-decoration: none;
+}
+.social-icon-btn:hover {
+  color: #22d3ee;
+  border-color: rgba(6, 182, 212, 0.45);
+  background: rgba(6, 182, 212, 0.08);
+  transform: translateX(-3px);
+}
+
+.sidebar-icon {
+  width: 17px;
+  height: 17px;
+}
+
+/* Hide on small screens — icons already in hero area on mobile */
+@media (max-width: 640px) {
+  .social-sidebar { display: none; }
 }
 </style>
