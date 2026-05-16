@@ -58,12 +58,8 @@
           <!-- Decorative blobs -->
           <div class="blob blob-cyan"></div>
           <div class="blob blob-purple"></div>
-          <!-- Offset border -->
-          <div class="photo-border-offset"></div>
           <!-- Photo -->
-          <img src="@/assets/formal.jpeg" alt="Sonam Tobgay" class="hero-photo" />
-          <!-- Corner accent dots -->
-          <div class="dot-grid"></div>
+          <img src="@/assets/dtoby_hero.png" alt="Sonam Tobgay" class="hero-photo" />
         </div>
       </div>
 
@@ -321,7 +317,7 @@ export default {
   pointer-events: none;
 }
 
-/* The photo */
+/* The photo — mask fades white edges into dark background */
 .hero-photo {
   position: relative;
   z-index: 2;
@@ -330,12 +326,22 @@ export default {
   object-fit: cover;
   object-position: top center;
   border-radius: 20px;
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.04),
-    0 24px 64px rgba(0, 0, 0, 0.6),
-    0 0 60px rgba(6, 182, 212, 0.12);
   animation: float 6s ease-in-out infinite;
+  /* Fade all four edges so the white background dissolves into the dark page */
+  mask-image: radial-gradient(
+    ellipse 82% 88% at 50% 38%,
+    black 45%,
+    rgba(0,0,0,0.9) 58%,
+    rgba(0,0,0,0.5) 72%,
+    transparent 90%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 82% 88% at 50% 38%,
+    black 45%,
+    rgba(0,0,0,0.9) 58%,
+    rgba(0,0,0,0.5) 72%,
+    transparent 90%
+  );
 }
 
 @keyframes float {
