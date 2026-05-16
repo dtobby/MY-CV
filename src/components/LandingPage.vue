@@ -4,8 +4,7 @@
     <!-- Social sidebar -->
     <div class="social-sidebar">
       <div class="sidebar-line sidebar-line--top"></div>
-      <a v-for="s in socials" :key="s.label"
-        :href="s.url" target="_blank" rel="noopener noreferrer"
+      <a v-for="s in socials" :key="s.label" :href="s.url" target="_blank" rel="noopener noreferrer"
         :aria-label="s.label" class="social-icon-btn">
         <component :is="s.icon" class="sidebar-icon" />
       </a>
@@ -39,7 +38,7 @@
         <router-link to="/home" class="btn-primary">
           View My Work
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </router-link>
         <router-link to="/about" class="btn-secondary">Contact Me</router-link>
@@ -70,10 +69,10 @@ export default {
   data() {
     return {
       socials: [
-        { label: 'Facebook',  icon: 'Facebook',  url: 'https://www.facebook.com/' },
-        { label: 'LinkedIn',  icon: 'Linkedin',  url: 'https://www.linkedin.com/in/sonam-tobgay/' },
-        { label: 'Instagram', icon: 'Instagram', url: 'https://www.instagram.com/' },
-        { label: 'GitHub',    icon: 'Github',    url: 'https://github.com/dtobby' },
+        { label: 'Facebook', icon: 'Facebook', url: 'https://www.facebook.com/sonam.tobgay.98229' },
+        { label: 'LinkedIn', icon: 'Linkedin', url: 'https://www.linkedin.com/in/sonam-tobgay-b13547231/' },
+        { label: 'Instagram', icon: 'Instagram', url: 'https://www.instagram.com/i_am_seeker_one' },
+        { label: 'GitHub', icon: 'Github', url: 'https://github.com/dtobby' },
       ],
       roles: [
         'Full Stack Developer',
@@ -148,31 +147,46 @@ export default {
 /* Avatar */
 .avatar-wrap {
   position: relative;
-  width: 128px;
-  height: 128px;
-  margin-bottom: 1.75rem;
+  width: 172px;
+  height: 172px;
+  margin-bottom: 2rem;
+  animation: float 5s ease-in-out infinite;
+  filter: drop-shadow(0 12px 40px rgba(6, 182, 212, 0.4));
 }
+
+/* Crisp spinning gradient ring */
+.avatar-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #22d3ee 0%,
+    #8b5cf6 35%,
+    #06b6d4 55%,
+    #818cf8 75%,
+    #22d3ee 100%
+  );
+  animation: spin 4s linear infinite;
+  z-index: 0;
+}
+
 .avatar-img {
-  width: 128px;
-  height: 128px;
+  width: 172px;
+  height: 172px;
   border-radius: 50%;
   object-fit: cover;
   object-position: top;
   position: relative;
-  z-index: 1;
-  border: 3px solid rgba(6, 182, 212, 0.4);
+  z-index: 2;
+  box-shadow: 0 0 0 4px #060d1f;
 }
-.avatar-ring {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, #06b6d4, #8b5cf6, #06b6d4);
-  animation: spin 6s linear infinite;
-  z-index: 0;
-  filter: blur(1px);
-  opacity: 0.7;
-}
+
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
 
 /* Text */
 .greeting {
@@ -202,18 +216,31 @@ export default {
   height: 2.25rem;
   margin-bottom: 1.5rem;
 }
+
 .role-text {
   font-size: 1.125rem;
   font-weight: 600;
   color: #22d3ee;
 }
+
 .cursor {
   font-size: 1.25rem;
   color: #22d3ee;
   animation: blink 1s step-end infinite;
   margin-left: 1px;
 }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
 
 .hero-bio {
   font-size: 0.9375rem;
@@ -246,6 +273,7 @@ export default {
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
 }
+
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(6, 182, 212, 0.45);
@@ -263,6 +291,7 @@ export default {
   text-decoration: none;
   transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
 }
+
 .btn-secondary:hover {
   color: #22d3ee;
   border-color: #22d3ee;
@@ -280,12 +309,14 @@ export default {
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   width: 100%;
 }
+
 .stat {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.125rem;
 }
+
 .stat-value {
   font-size: 1.5rem;
   font-weight: 800;
@@ -294,6 +325,7 @@ export default {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
 .stat-label {
   font-size: 0.75rem;
   color: #64748b;
@@ -314,6 +346,7 @@ export default {
   justify-content: center;
   padding-top: 6px;
 }
+
 .scroll-dot {
   width: 4px;
   height: 8px;
@@ -321,9 +354,19 @@ export default {
   border-radius: 2px;
   animation: scroll-bounce 2s ease-in-out infinite;
 }
+
 @keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(10px); opacity: 0.3; }
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(10px);
+    opacity: 0.3;
+  }
 }
 
 /* Social sidebar */
@@ -343,10 +386,12 @@ export default {
   width: 1px;
   background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.4));
 }
+
 .sidebar-line--top {
   height: 60px;
   background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.4));
 }
+
 .sidebar-line--bottom {
   height: 60px;
   background: linear-gradient(to bottom, rgba(6, 182, 212, 0.4), transparent);
@@ -365,6 +410,7 @@ export default {
   transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
   text-decoration: none;
 }
+
 .social-icon-btn:hover {
   color: #22d3ee;
   border-color: rgba(6, 182, 212, 0.45);
@@ -379,6 +425,8 @@ export default {
 
 /* Hide on small screens — icons already in hero area on mobile */
 @media (max-width: 640px) {
-  .social-sidebar { display: none; }
+  .social-sidebar {
+    display: none;
+  }
 }
 </style>
