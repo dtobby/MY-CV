@@ -1,15 +1,15 @@
 <template>
-  <div class="p-20 space-y-12">
+  <div class="p-4 md:p-8 lg:p-20 space-y-12">
     <!-- Profile Header -->
     <div class="bg-black text-white p-8 rounded-lg shadow-lg flex flex-col items-center space-y-6">
-      <img class="w-40 h-40 rounded-full border-4 border-cyan-600" :src="profile.picture" alt="Profile Picture" />
+      <img class="w-40 h-40 rounded-full border-4 border-cyan-600" :src="profile.picture" alt="Profile picture of Sonam Tobgay" loading="lazy" />
       <h1 class="text-4xl font-bold text-cyan-600">{{ profile.name }}</h1>
       <p class="text-lg text-gray-300">{{ profile.profession }}</p>
       <p class="text-sm text-gray-400 max-w-lg text-center">{{ profile.about }}</p>
 
       <!-- Social Icons -->
       <div class="flex space-x-6 mt-4">
-        <a :href="profile.contact.github" target="_blank"
+        <a :href="profile.contact.github" target="_blank" rel="noopener noreferrer"
           class="p-2 rounded-full hover:bg-gray-800 transition-colors duration-200" aria-label="GitHub Profile">
           <Github class="w-6 h-6 text-gray-400 hover:text-cyan-600" />
         </a>
@@ -19,7 +19,7 @@
           <Mail class="w-6 h-6 text-gray-400 hover:text-cyan-600" />
         </a>
 
-        <a :href="'https://wa.me/' + profile.contact.phone.replace(/[^0-9]/g, '')" target="_blank"
+        <a :href="'https://wa.me/' + profile.contact.phone.replace(/[^0-9]/g, '')" target="_blank" rel="noopener noreferrer"
           class="p-2 rounded-full hover:bg-gray-800 transition-colors duration-200" aria-label="WhatsApp Chat">
           <MessageCircle class="w-6 h-6 text-gray-400 hover:text-cyan-600" />
         </a>
@@ -32,7 +32,7 @@
       <div class="space-y-6">
         <!-- Contact Section -->
         <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-white bg-opacity-60">
-          <h2 class="text-3xl font-semibold text-cyan-600">Contact  Details</h2>
+          <h2 class="text-3xl font-semibold text-cyan-600">Contact Details</h2>
           <ul class="space-y-3 mt-3">
             <li><strong>Email:</strong> <span class="text-gray-300">{{ profile.contact.email }}</span></li>
             <li><strong>Phone:</strong> <span class="text-gray-300">{{ profile.contact.phone }}</span></li>
@@ -47,8 +47,8 @@
           <h2 class="text-3xl font-semibold text-cyan-600">Education</h2>
           <ul class="space-y-3 mt-3">
             <li>
-              <h2><strong>{{ profile.education.grade_or_degree }}</strong> - {{ profile.education.university_school }}
-                ({{ profile.education.year }})</h2>
+              <h3><strong>{{ profile.education.grade_or_degree }}</strong> - {{ profile.education.university_school }}
+                ({{ profile.education.year }})</h3>
             </li>
           </ul>
         </div>
@@ -76,7 +76,6 @@
       <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-white bg-opacity-60">
         <h2 class="text-3xl font-semibold text-cyan-600 mb-4">Send Me a Message</h2>
 
-        <!-- Name -->
         <div class="mb-4">
           <label for="name" class="block text-gray-300 font-semibold mb-2">Your Name</label>
           <input type="text" id="name" v-model="contactForm.name"
@@ -84,7 +83,6 @@
             placeholder="Enter your name" />
         </div>
 
-        <!-- Email -->
         <div class="mb-4">
           <label for="email" class="block text-gray-300 font-semibold mb-2">Your Email</label>
           <input type="email" id="email" v-model="contactForm.email"
@@ -92,7 +90,6 @@
             placeholder="Enter your email" />
         </div>
 
-        <!-- Message Input -->
         <div class="mb-6">
           <label for="message" class="block text-gray-300 font-semibold mb-2">Your Message</label>
           <textarea id="message" v-model="contactForm.message" rows="5"
@@ -100,13 +97,11 @@
             placeholder="Enter your message"></textarea>
         </div>
 
-        <!-- Submit Button -->
         <button @click="sendMessage" :disabled="loading"
           class="w-full px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed">
           {{ loading ? "Sending..." : "Send Message" }}
         </button>
 
-        <!-- Status Message -->
         <div v-if="status.message" :class="status.success ? 'text-green-500' : 'text-red-500'"
           class="mt-4 text-center font-semibold">
           {{ status.message }}
@@ -118,68 +113,34 @@
 
 <script>
 import { Github, Mail, MessageCircle } from 'lucide-vue-next';
+import profile from '@/data/Profile';
+import { isValidEmail } from '@/utils/validation';
 
 export default {
-  name: "AboutPage",
-  components: {
-    Github,
-    Mail,
-    MessageCircle
-  },
+  name: 'AboutPage',
+  components: { Github, Mail, MessageCircle },
   data() {
     return {
-      profile: {
-        name: "Sonam Tobgay",
-        profession: "Developer",
-        about: "An innovative and detail-oriented developer with 3+ years of experience in building web and mobile applications. Passionate about technology and problem-solving.",
-        picture: require('@/assets/dtoby.jpg'),
-        contact: {
-          email: "Sonamt566@gmail.com",
-          phone: "+975 16922982",
-          github: "https://github.com/dtobby"
-        },
-        education: {
-          grade_or_degree: "Class XII",
-          university_school: "Dunsam Academy",
-          year: "2014"
-        },
-        certifications: [
-          { title: "SAP Certified Application Associate - SAP Ariba Contracts 2023", issuer: "SAP", year: "2024" },
-          { title: "MLops in Practise:Developing , Deployingand Managing ML Model in cloud", issuer: "GovTech and Omdena", year: "2023" },
-          { title: "Mastering Odoo Developement - Technical Fundamentals", issuer: "Udemy", year: "2022" },
-          { title: "Essential Data science Building Blocks Course", issuer: "DHI and Omdena", year: "2022" },
-          { title: "Intermediate Python", issuer: "Data Camp", year: "2022" },
-          { title: "Data Analytics ", issuer: "IBM and Coursera", year: "2022" },
-        ],
-        hobbies: ["Coding", "Photography", "Traveling", "Reading", "Football"]
-      },
-      contactForm: {
-        name: "",
-        email: "",
-        message: ""
-      },
-      status: {
-        message: "",
-        success: false
-      },
-      loading: false // added loading state
+      profile,
+      contactForm: { name: '', email: '', message: '' },
+      status: { message: '', success: false },
+      loading: false
     };
   },
   methods: {
     async sendMessage() {
       if (!this.contactForm.name || !this.contactForm.email || !this.contactForm.message) {
-        this.status = { message: "Please fill out all fields.", success: false };
+        this.status = { message: 'Please fill out all fields.', success: false };
         return;
       }
 
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(this.contactForm.email)) {
-        this.status = { message: "Please enter a valid email address.", success: false };
+      if (!isValidEmail(this.contactForm.email)) {
+        this.status = { message: 'Please enter a valid email address.', success: false };
         return;
       }
 
       this.loading = true;
-      this.status = { message: "", success: false };
+      this.status = { message: '', success: false };
 
       try {
         const response = await fetch('/api/send-email', {
@@ -195,13 +156,13 @@ export default {
         const data = await response.json();
 
         if (response.ok) {
-          this.status = { message: "Message sent successfully!", success: true };
-          this.contactForm = { name: "", email: "", message: "" };
+          this.status = { message: 'Message sent successfully!', success: true };
+          this.contactForm = { name: '', email: '', message: '' };
         } else {
-          this.status = { message: data.error || "Failed to send message. Please try again.", success: false };
+          this.status = { message: data.error || 'Failed to send message. Please try again.', success: false };
         }
-      } catch (error) {
-        this.status = { message: "Failed to send message. Please try again.", success: false };
+      } catch {
+        this.status = { message: 'Failed to send message. Please try again.', success: false };
       } finally {
         this.loading = false;
       }
@@ -209,11 +170,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.card-container {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-</style>

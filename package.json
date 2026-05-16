@@ -5,7 +5,19 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": ["**/tests/unit/**/*.spec.js"],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "\\.(jpg|jpeg|png|gif|svg|pdf)$": "<rootDir>/tests/__mocks__/fileMock.js"
+    }
   },
   "engines": {
     "node": ">=20.0.0 <21.0.0",
@@ -26,8 +38,10 @@
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "autoprefixer": "^10.4.20",
+    "babel-jest": "^30.4.1",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "jest": "^30.4.2",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14"
   },

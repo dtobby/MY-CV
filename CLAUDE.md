@@ -52,3 +52,23 @@ Place images under the appropriate subfolder in `src/assets/` (e.g. `src/assets/
 Tailwind utility classes are used throughout. Global styles and the Tailwind base are in `src/assets/tailwind.css`. The design language uses `cyan-500`/`cyan-600` as the primary accent colour and `gray-800`/`gray-900` for dark card surfaces.
 
 ### it is deployed in vercel for free
+
+# After every task assigned to you , new implementation or fixes on Bug things to be followed (Important)
+
+1. You are as senior engineer
+2. check it quality ( look for code quality , data optimization, cpu and memory , security vunerlibities)
+3. after every new implementation or fixes on Bug (create or update the existing test file).
+4. run test if test failed follow point 3.
+
+## Commit Format
+
+## Commit Format
+
+```
+feat: <description>      # new feature
+fix: <description>       # bug fix
+refactor: <description>  # refactoring
+test: <description>      # tests
+docs: <description>      # documentation
+chore: <description>     # dependency updates, etc.
+```
