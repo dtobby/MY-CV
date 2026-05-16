@@ -1,5 +1,5 @@
 {
-  "name": "my-cv-project",
+  "name": "dtoby",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,9 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testMatch": ["**/tests/unit/**/*.spec.js"],
+    "testMatch": [
+      "**/tests/unit/**/*.spec.js"
+    ],
     "transform": {
       "^.+\\.js$": "babel-jest"
     },
@@ -60,7 +62,9 @@
     "rules": {},
     "overrides": [
       {
-        "files": ["tests/**/*.spec.js"],
+        "files": [
+          "tests/**/*.spec.js"
+        ],
         "env": {
           "jest": true
         }
