@@ -93,11 +93,12 @@
           <section class="section">
             <h2 class="section-title">About Me</h2>
             <p class="about-text">
-              Results-oriented Software Engineer with 3+ years of experience specializing in full-stack development
-              (Python/Django, JavaScript/Vue.js/React, Elixir/Phoenix) and data-driven solutions. Proven ability to
-              design, develop, and deploy responsive web applications, insightful dashboards, and automated systems.
-              Passionate about leveraging technology to solve complex problems, with a keen interest in DevOps and
-              cybersecurity. Eager to contribute technical expertise to build secure, scalable, and efficient software
+              Results-driven Software Engineer with 5+ years of hands-on experience designing, developing, and
+              deploying full-stack web applications across government, non-profit, and private sectors. Proficient in
+              Python/Django, JavaScript/Vue.js/React, and Elixir/Phoenix, with strong experience in RESTful API
+              development, relational database design, microservices architecture, and test-driven development.
+              Demonstrated ability to lead end-to-end project lifecycles from requirements gathering and system design
+              through deployment, testing, and client handover, while building clean, maintainable, and scalable
               solutions.
             </p>
           </section>
@@ -149,14 +150,47 @@ export default {
       loading: false,
       experience: [
         {
-          title: 'Frontend Developer',
-          company: 'Bhutan Qualification and Professional Certification Authority',
+          title: 'Full Stack Developer',
+          company: 'Playbt',
+          period: 'Aug 2025 - Mar 2026',
+          achievements: [
+            'Led a cross-functional team in delivering a full-stack web platform and mobile app using a monorepo architecture with Phoenix and PostgreSQL.',
+            'Applied test-driven development with ExUnit and Mox, building unit and integration tests across service boundaries.',
+            'Established team-wide testing standards for unit, integration, and end-to-end test suites to reduce regression defects.',
+            'Conducted systematic pull request reviews to maintain architecture consistency, design quality, and coding standards.'
+          ]
+        },
+        {
+          title: 'Full Stack Developer',
+          company: 'Conchie Assessment Platform',
+          period: 'Apr 2025 - Nov 2025',
+          achievements: [
+            'Contributed to a professional assessment platform built on a microservices architecture using Nest.js and Elixir-based backend services.',
+            'Designed backend-focused unit and integration test suites with ExUnit to validate business logic, API contracts, and scalability.',
+            'Optimized GitHub Actions pipelines for staging and main branches by splitting jobs in parallel and using path-based filters.'
+          ]
+        },
+        {
+          title: 'Full Stack Developer',
+          company: 'Evaluation Association of Bhutan',
           period: 'Nov 2024 - Apr 2025',
           achievements: [
-            'Developed and maintained a responsive web application using Vue.js, enhancing user experience and performance.',
-            'Implemented complex data visualizations and interactive dashboards to present key metrics and insights.',
-            'Collaborated with cross-functional teams to gather requirements, design solutions',
-            'Conducted thorough testing and debugging to ensure software reliability and performance.'
+            'Managed the full project lifecycle from requirements gathering and business process analysis to development, testing, and deployment.',
+            'Designed a normalized PostgreSQL schema to support evaluation workflows, organizational data, reporting, and historical tracking.',
+            'Built a responsive web application with Vue.js and Django REST Framework for evaluation records, reports, and real-time dashboards.',
+            'Deployed the application to Hostinger and configured the production environment for stable uptime.'
+          ]
+        },
+        {
+          title: 'Full Stack Developer',
+          company: 'Bhutan Qualification and Professional Certification Authority',
+          period: 'Nov 2024 - Feb 2025',
+          achievements: [
+            'Collaborated with multiple government stakeholders to gather and formalize requirements for a qualification and certification platform.',
+            'Owned the ECPF and Accreditation modules, designing their data models, API endpoints, and frontend interfaces from architecture to delivery.',
+            'Built responsive Vue.js frontend features integrated with Django REST Framework APIs for qualification standards and accreditation workflows.',
+            'Implemented interactive dashboards for qualification metrics, accreditation statuses, and institutional performance indicators.',
+            'Performed unit testing, integration testing, and end-to-end debugging to meet government quality standards.'
           ]
         },
         {
@@ -216,14 +250,20 @@ export default {
           company: 'Desuung Skilling Programme (DSP) - IBM Data Analyst Track',
           period: 'Sept 2021 - March 2022',
           achievements: [
-            'Developed and validated a machine learning model to predict used car prices, achieving ',
-            'Conducted time-series analysis on stock market data to identify trends and build predictive insights.',
-            'Engineered a regression model for predicting house rental prices based on diverse property features.',
-            'Designed and deployed a Python-based web scraping solution to collect and analyze job market data from Dzi Selra , identifying employment trends in Bhutan.'
+            'Developed, trained, and validated a machine learning model to predict used car market prices using feature engineering and hyperparameter tuning.',
+            'Conducted time-series analysis on Bhutanese and international stock market datasets to identify trends and predictive insights.',
+            'Engineered a multivariate regression model to predict residential rental prices in Thimphu based on diverse property features.',
+            'Built a Python web scraping workflow to collect and analyze job listings from Dzi Selra, identifying employment trends and in-demand skills in Bhutan.',
+            'Developed a prototype text-to-speech chatbot as an NLP mini-project for accessible voice-enabled information retrieval.'
           ]
         }
       ],
       trainings: [
+        {
+          title: 'API Security Fundamental',
+          institution: 'APISEC University',
+          period: 'October 2025'
+        },
         {
           title: 'Microservices Web Application Development',
           institution: 'DrukSmart',
@@ -247,11 +287,12 @@ export default {
       ],
       skills: {
         technical: [
-          'Python', 'JavaScript', 'SQL', 'Google Apps Script', 'Elixir',
-          'Django', 'React', 'Vue.js', 'Next.js', 'Phoenix Framework',
-          'Data Analysis', 'Data Visualization', 'Dashboard Creation', 'Machine Learning (Model Training)',
-          'Git', 'Odoo ERP', 'Firebase', 'Jira',
-          'API Development & Integration', 'Process Automation', 'Web Scraping'
+          'Elixir', 'Python', 'JavaScript', 'SQL', 'Google Apps Script',
+          'Django', 'Phoenix Framework', 'Vue.js', 'React', 'Next.js', 'Nuxt.js',
+          'Data Analysis', 'Data Visualization', 'Dashboard Creation', 'Machine Learning',
+          'Web Scraping', 'Git', 'Firebase', 'Jira', 'Odoo ERP',
+          'API Development & Integration', 'Process Automation',
+          'Testing (ExUnit / Jest / Mox / Unittest)'
         ],
         functional: [
           'Project Management (Agile)',
@@ -259,8 +300,8 @@ export default {
           'Data Interpretation & Reporting',
           'User Acceptance Testing (UAT)',
           'Technical Documentation',
-          'UI/UX Design Principles(Basic Understanding)',
-          'SAP Ariba Contracts(Functional Understanding)'
+          'UI/UX Design Principles',
+          'SAP Ariba Contracts (Functional Understanding)'
         ]
       }
     }

@@ -26,22 +26,31 @@ export default {
   data() {
     return {
       achievements: [
-      
-      {
-    title: "Data Analytics",
-    description: "Successfully completed intensive data analytics training, mastering key tools and techniques including data visualization, statistical analysis, and predictive modeling. Transformed my passion into practical expertise through hands-on projects and real-world applications, strengthening my analytical thinking and problem-solving capabilities.",
-    date: "Jul 2023"
-},
-{
-    title: "Desuung Training",
-    description: "Proudly served as a Desuung (Guardian of Peace) volunteer during the COVID-19 pandemic, contributing to national security and public welfare for over one year. Participated in crucial activities including border control management, public safety initiatives, and community support programs. Developed strong leadership, teamwork, and crisis management skills while serving the nation.",
-    date: "March 2020"
-},
-{
-    title: "Sherubtse Student Leadership Programme",
-    description: "Participated in an intensive month-long leadership development program at Sherubtse College. Enhanced core leadership competencies including strategic thinking, effective communication, team management, and conflict resolution. Engaged in workshops, group projects, and practical exercises designed to foster leadership excellence and personal growth.",
-    date: "April 2018"
-}
+        {
+          title: "Delivered Playbt Platform",
+          description: "Led cross-functional development of a real-time full-stack web platform and mobile application using Phoenix, PostgreSQL, and a monorepo architecture, while enforcing code quality through reviews and strong testing practices.",
+          date: "Mar 2026"
+        },
+        {
+          title: "Built Government Certification Modules",
+          description: "Owned and delivered the ECPF and Accreditation modules for Bhutan Qualification and Professional Certification Authority, including frontend interfaces, API design, dashboards, and end-to-end testing.",
+          date: "Feb 2025"
+        },
+        {
+          title: "Deployed Evaluation Association Platform",
+          description: "Managed the full delivery lifecycle of a Vue.js and Django REST application for the Evaluation Association of Bhutan, including PostgreSQL schema design, dashboard features, and production deployment.",
+          date: "Apr 2025"
+        },
+        {
+          title: "IBM Data Analyst Track Projects",
+          description: "Completed applied analytics and machine learning projects covering used car price prediction, stock time-series analysis, rental price modelling, web scraping of Bhutan job data, and an NLP chatbot prototype.",
+          date: "Mar 2022"
+        },
+        {
+          title: "Desuung Service",
+          description: "Served as a Desuung volunteer during the COVID-19 period, contributing to public safety, discipline, teamwork, and community support under demanding conditions.",
+          date: "Mar 2020"
+        }
       ],
     };
   },
