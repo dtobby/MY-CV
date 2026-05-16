@@ -16,28 +16,41 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Invalid email address' })
   }
 
+  const pass = (process.env.SMTP_PASS || '').replace(/\s/g, '')
+  const user = process.env.SMTP_USER
+
+  if (!user || !pass) {
+    console.error('Missing SMTP credentials in environment variables')
+    return res.status(500).json({ error: 'Server misconfiguration. Please try again later.' })
+  }
+
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT, 10),
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS.replace(/\s/g, ''),
-    },
+    service: 'gmail',
+    auth: { user, pass },
   })
 
   try {
+    await transporter.verify()
+  } catch (err) {
+    console.error('SMTP verify failed:', err.message)
+    return res.status(500).json({ error: 'Failed to connect to mail server.' })
+  }
+
+  try {
     await transporter.sendMail({
-      from: process.env.EMAIL_FROM,
-      to: process.env.SMTP_USER,
+      from: `"Sonam Tobgay" <${user}>`,
+      to: user,
       replyTo: email,
       subject: `CV Contact: Message from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
       html: `
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <hr/>
-        <p>${message.replace(/\n/g, '<br/>')}</p>
+        <div style="font-family:sans-serif;max-width:560px">
+          <h2 style="color:#0891b2">New message from your CV</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+          <hr/>
+          <p style="white-space:pre-wrap">${message}</p>
+        </div>
       `,
     })
 
