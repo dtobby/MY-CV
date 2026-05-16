@@ -10,6 +10,14 @@ yarn install
 yarn serve
 ```
 
+### Runs the local contact-form API
+In a second terminal, run:
+```
+yarn api
+```
+
+The Vue dev server proxies `/api/send-email` to `http://localhost:3001`, so both commands need to be running when testing the contact form locally.
+
 ### Compiles and minifies for production
 ```
 yarn build

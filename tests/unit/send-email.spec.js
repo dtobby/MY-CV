@@ -1,9 +1,10 @@
 const handler = require('../../api/send-email')
 
+const mockVerify = jest.fn().mockResolvedValue(true)
 const mockSendMail = jest.fn().mockResolvedValue({ messageId: 'test-id' })
 
 jest.mock('nodemailer', () => ({
-  createTransport: jest.fn(() => ({ sendMail: mockSendMail }))
+  createTransport: jest.fn(() => ({ verify: mockVerify, sendMail: mockSendMail }))
 }))
 
 function makeReq(body, method = 'POST') {
@@ -19,6 +20,8 @@ function makeRes() {
 
 beforeEach(() => {
   jest.clearAllMocks()
+  mockVerify.mockResolvedValue(true)
+  mockSendMail.mockResolvedValue({ messageId: 'test-id' })
   process.env.SMTP_HOST = 'smtp.gmail.com'
   process.env.SMTP_PORT = '587'
   process.env.SMTP_SECURE = 'false'

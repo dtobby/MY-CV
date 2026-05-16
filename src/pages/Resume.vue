@@ -688,7 +688,7 @@ export default {
   body {
     margin: 0;
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .resume-container {
@@ -703,26 +703,26 @@ export default {
   .header-section {
     background: linear-gradient(135deg, #0891b2 0%, #155e75 100%) !important;
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
     color: white !important;
   }
 
   .header-section .text-cyan-100 {
     color: #cffafe !important;
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .header-section .contact-item svg {
     stroke: white !important;
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .header-section .contact-item span {
     color: white !important;
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .main-content {
@@ -753,13 +753,13 @@ export default {
     /* Already in general styles, kept for clarity or if general ones were removed */
     background-color: #ffffff !important;
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .technical-skill,
   .functional-skill {
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .technical-skill {
@@ -775,13 +775,13 @@ export default {
   .profile-image-container {
     border-color: #0891b2 !important;
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .section-title {
     border-bottom-color: #0891b2 !important;
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .experience-company,
@@ -789,7 +789,7 @@ export default {
   .training-institution {
     color: #0891b2 !important;
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
 
