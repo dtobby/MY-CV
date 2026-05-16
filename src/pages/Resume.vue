@@ -1,14 +1,13 @@
 <template>
   <div class="min-h-screen py-8 px-4 print:p-0 mt-6">
     <div class="max-w-6xl mx-auto mb-4 print:hidden">
-      <button @click="downloadPDF" :disabled="loading" class="float-right bg-cyan-700 text-white px-6 py-2 rounded-lg hover:bg-cyan-600
-              transition duration-200 flex items-center space-x-2 disabled:opacity-50">
-        <svg v-if="loading" class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" />
-          <path class="opacity-75" fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+      <button @click="downloadPDF" class="float-right bg-cyan-700 text-white px-6 py-2 rounded-lg hover:bg-cyan-600
+              transition duration-200 flex items-center space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
         </svg>
-        <span>{{ loading ? 'Generating PDF...' : 'Download PDF' }}</span>
+        <span>Download PDF</span>
       </button>
     </div>
     <div id="resume-container"
@@ -140,8 +139,6 @@
 </template>
 
 <script>
-import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
 import experience from '@/data/Experience'
 import trainings from '@/data/Trainings'
 
@@ -149,7 +146,6 @@ export default {
   name: 'ResumePage',
   data() {
     return {
-      loading: false,
       experience,
       trainings,
       skills: {
@@ -174,63 +170,8 @@ export default {
     }
   },
   methods: {
-    async downloadPDF() {
-      this.loading = true
-      const element = document.getElementById('resume-container')
-
-      try {
-        const canvas = await html2canvas(element, {
-          scale: 1.5,
-          useCORS: true,
-          allowTaint: true,
-          logging: false,
-          letterRendering: true,
-          width: element.scrollWidth,
-          height: element.scrollHeight,
-          windowWidth: 1200,
-          windowHeight: element.scrollHeight,
-          backgroundColor: '#ffffff'
-        })
-
-        const pdf = new jsPDF('p', 'mm', 'a4')
-        const pageWidth = pdf.internal.pageSize.getWidth()
-        const pageHeight = pdf.internal.pageSize.getHeight()
-
-        const imgWidth = pageWidth
-        const imgHeight = (canvas.height * imgWidth) / canvas.width
-        const imgData = canvas.toDataURL('image/jpeg', 0.95)
-
-        let heightLeft = imgHeight
-        let position = 0
-        let pageCount = 0
-
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight, '', 'FAST')
-        heightLeft -= pageHeight
-        pageCount++
-
-        while (heightLeft > 0) {
-          position = -(pageHeight * pageCount)
-          pdf.addPage()
-          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight, '', 'FAST')
-          heightLeft -= pageHeight
-          pageCount++
-        }
-
-        pdf.setProperties({
-          title: 'Resume - Sonam Tobgay',
-          subject: 'Software Engineer Resume',
-          author: 'Sonam Tobgay',
-          keywords: 'resume, cv, developer, software engineer, python, javascript, vue, react, elixir, django, phoenix, data analysis',
-          creator: 'Sonam Tobgay - Resume Generator'
-        })
-
-        pdf.save('Sonam-Tobgay-Resume.pdf')
-      } catch (error) {
-        console.error('PDF generation failed:', error)
-        alert('Failed to generate PDF. Please check the console for errors and try again.')
-      } finally {
-        this.loading = false
-      }
+    downloadPDF() {
+      window.print()
     }
   }
 }
