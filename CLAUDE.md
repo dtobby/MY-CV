@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 yarn install      # install dependencies
-yarn serve        # dev server with hot-reload (Node 20 required — see .nvmrc)
+yarn serve        # dev server with hot-reload (Node 22 required — see .nvmrc)
 yarn api          # local contact-form API on port 3001; run alongside yarn serve
 yarn build        # production build to dist/
 yarn lint         # lint and auto-fix
