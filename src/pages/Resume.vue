@@ -154,7 +154,7 @@ export default {
       skills: {
         technical: [
           'Elixir', 'Python', 'JavaScript', 'SQL', 'Google Apps Script',
-          'Django', 'Phoenix Framework', 'Vue.js', 'React', 'Next.js', 'Nuxt.js',
+          'Django', 'Phoenix Framework', 'Vue.js', 'React', 'Next.js', 'Nuxt.js', 'Capacitor',
           'Data Analysis', 'Data Visualization', 'Dashboard Creation', 'Machine Learning',
           'Web Scraping', 'Git', 'Firebase', 'Jira', 'Odoo ERP',
           'API Development & Integration', 'Process Automation',

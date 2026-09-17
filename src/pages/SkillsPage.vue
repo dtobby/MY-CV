@@ -65,6 +65,7 @@ export default {
         { name: 'Next.js', logo: 'https://cdn.simpleicons.org/nextdotjs/FFFFFF', rating: 5, category: 'frontend' },
         { name: 'Nuxt.js', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Nuxt_logo.svg', rating: 6, category: 'frontend' },
         { name: 'Bootstrap', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg', rating: 7, category: 'frontend' },
+        { name: 'Capacitor', logo: 'https://cdn.simpleicons.org/capacitor/119EFF', rating: 7, category: 'frontend' },
         // Backend
         { name: 'Elixir', logo: 'https://cdn.simpleicons.org/elixir/9B30FF', rating: 5, category: 'backend' },
         { name: 'Phoenix', logo: 'https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/254_Phoenix_Framework_logo-512.png', rating: 5, category: 'backend' },

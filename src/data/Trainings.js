@@ -1,5 +1,10 @@
 export default [
   {
+    title: 'Introduction to Cybersecurity',
+    institution: 'Cisco Networking Academy',
+    period: 'July 2026'
+  },
+  {
     title: 'API Security Fundamental',
     institution: 'APISEC University',
     period: 'October 2025'
