@@ -3,16 +3,18 @@ export default [
     id: 1,
     title: "Playbt Platform",
     company: "Playbt",
-    date: "Aug 2025 - Mar 2026",
+    date: "Aug 2025 - Present",
     role: "Full Stack Developer",
-    description: `Led the delivery of a real-time full-stack web platform and mobile application.
-- Built on a monorepo architecture with Phoenix and PostgreSQL.
-- Focused on scalable backend design, real-time features, and team code quality.
-- Worked across architecture, testing, and code review workflows.`,
+    description: `Led a cross-functional team in delivering a full-stack web platform and mobile app using a monorepo architecture with Phoenix and PostgreSQL.
+- Led the team in applying test-driven development with ExUnit and Mox, enforcing regression testing principles across unit and integration test suites to prevent defect recurrence.
+- Established team-wide testing standards for unit, integration, and end-to-end test suites to reduce regression defects.
+- Implemented OCR to extract payment text from GoBob receipts and automatically trigger booking confirmations, eliminating manual entry.
+- Integrated RMA payment gateway to support secure in-app transactions.
+- Conducted systematic pull request reviews to maintain architecture consistency, design quality, and coding standards.`,
     challenges:
-      "Maintaining reliability and quality across multiple modules while supporting real-time platform behaviour and concurrent usage.",
+      "Maintaining reliability, scalability, and performance across multiple modules while supporting real-time platform behaviour, third-party payment integration, and concurrent usage.",
     solutions:
-      "Applied TDD with ExUnit and Mox, introduced clear testing standards for unit, integration, and end-to-end coverage, and enforced consistency through structured pull request reviews.",
+      "Applied TDD with ExUnit and Mox, introduced clear testing standards, used OCR to parse GoBob payment receipts and auto-confirm bookings, integrated RMA payment processing, and enforced architecture consistency through structured pull request reviews.",
     image: require("@/assets/playbt_logo.png"),
     project_image: require("@/assets/playbt.png"),
     stack: ["Phoenix", "Elixir", "PostgreSQL", "ExUnit", "Mox"],
@@ -44,14 +46,15 @@ export default [
     description: `Delivered a full-stack association management platform for evaluation workflows.
 - Gathered requirements and modeled organizational processes.
 - Designed a normalized PostgreSQL database schema.
-- Built responsive member features, reporting, and dashboards with Vue.js and Django REST Framework.`,
+- Built responsive member features, reporting, and dashboards with Nuxt.js and Django REST Framework.
+- Implemented unit and integration tests to validate business logic, API endpoints, and data integrity across the application.`,
     challenges:
       "Translating evaluation processes into a maintainable relational data model while supporting accurate reporting and historical tracking.",
     solutions:
       "Structured the database around normalized workflow entities, implemented responsive dashboard features, and deployed the production system to Hostinger with stable hosting configuration.",
     image: require("@/assets/eab_log.png"),
     project_image: require("@/assets/eab.png"),
-    stack: ["Vue", "Django REST Framework", "PostgreSQL", "Hostinger"],
+    stack: ["Nuxt.js", "Django REST Framework", "PostgreSQL", "Hostinger"],
   },
   {
     id: 4,

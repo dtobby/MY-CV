@@ -4,8 +4,7 @@
     <!-- Fixed vertical social sidebar -->
     <div class="social-sidebar">
       <div class="sidebar-line sidebar-line--top"></div>
-      <a v-for="s in socials" :key="s.label"
-        :href="s.url" target="_blank" rel="noopener noreferrer"
+      <a v-for="s in socials" :key="s.label" :href="s.url" target="_blank" rel="noopener noreferrer"
         :aria-label="s.label" class="social-icon-btn">
         <component :is="s.icon" class="sidebar-icon" />
       </a>
@@ -38,7 +37,7 @@
           <router-link to="/home" class="btn-primary">
             View My Work
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </router-link>
           <router-link to="/about" class="btn-secondary">Contact Me</router-link>
@@ -76,23 +75,24 @@ export default {
   data() {
     return {
       socials: [
-        { label: 'Facebook',  icon: 'Facebook',  url: 'https://www.facebook.com/sonam.tobgay.98229' },
-        { label: 'LinkedIn',  icon: 'Linkedin',  url: 'https://www.linkedin.com/in/sonam-tobgay-b13547231/' },
+        { label: 'Facebook', icon: 'Facebook', url: 'https://www.facebook.com/sonam.tobgay.98229' },
+        { label: 'LinkedIn', icon: 'Linkedin', url: 'https://www.linkedin.com/in/sonam-tobgay-b13547231/' },
         { label: 'Instagram', icon: 'Instagram', url: 'https://www.instagram.com/i_am_seeker_one' },
-        { label: 'GitHub',    icon: 'Github',    url: 'https://github.com/dtobby' },
+        { label: 'GitHub', icon: 'Github', url: 'https://github.com/dtobby' },
       ],
       roles: [
+        'Software Engineer',
         'Full Stack Developer',
-        'Vue.js Specialist',
         'Backend Engineer',
         'Data Enthusiast',
+        'DevOps'
       ],
       displayedRole: '',
       roleIndex: 0,
       charIndex: 0,
       isDeleting: false,
       stats: [
-        { value: '5+',  label: 'Years Experience' },
+        { value: '5+', label: 'Years Experience' },
         { value: '10+', label: 'Projects Delivered' },
         { value: '15+', label: 'Technologies' },
       ],
@@ -172,7 +172,11 @@ export default {
   line-height: 1.05;
   margin-bottom: 1rem;
 }
-.name-white { color: #f1f5f9; }
+
+.name-white {
+  color: #f1f5f9;
+}
+
 .name-accent {
   background: linear-gradient(135deg, #22d3ee, #818cf8);
   -webkit-background-clip: text;
@@ -186,14 +190,31 @@ export default {
   height: 2rem;
   margin-bottom: 1.5rem;
 }
-.role-text { font-size: 1.0625rem; font-weight: 600; color: #22d3ee; }
+
+.role-text {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: #22d3ee;
+}
+
 .cursor {
   font-size: 1.125rem;
   color: #22d3ee;
   margin-left: 1px;
   animation: blink 1s step-end infinite;
 }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
 
 .hero-bio {
   font-size: 0.9375rem;
@@ -225,7 +246,11 @@ export default {
   box-shadow: 0 4px 20px rgba(6, 182, 212, 0.35);
   transition: transform 0.2s, box-shadow 0.2s;
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(6, 182, 212, 0.5); }
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(6, 182, 212, 0.5);
+}
 
 .btn-secondary {
   display: inline-flex;
@@ -239,7 +264,13 @@ export default {
   text-decoration: none;
   transition: all 0.2s;
 }
-.btn-secondary:hover { color: #22d3ee; border-color: #22d3ee; background: rgba(6,182,212,0.07); transform: translateY(-2px); }
+
+.btn-secondary:hover {
+  color: #22d3ee;
+  border-color: #22d3ee;
+  background: rgba(6, 182, 212, 0.07);
+  transform: translateY(-2px);
+}
 
 /* Stats */
 .hero-stats {
@@ -247,10 +278,16 @@ export default {
   gap: 2rem;
   flex-wrap: wrap;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
   width: 100%;
 }
-.stat { display: flex; flex-direction: column; gap: 0.125rem; }
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
 .stat-value {
   font-size: 1.5rem;
   font-weight: 800;
@@ -259,7 +296,12 @@ export default {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.stat-label { font-size: 0.75rem; color: #475569; letter-spacing: 0.03em; }
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #475569;
+  letter-spacing: 0.03em;
+}
 
 /* ── RIGHT COLUMN — PHOTO ─────────────────────────────── */
 .hero-right {
@@ -283,15 +325,21 @@ export default {
   z-index: 0;
   pointer-events: none;
 }
+
 .blob-cyan {
-  width: 220px; height: 220px;
+  width: 220px;
+  height: 220px;
   background: rgba(6, 182, 212, 0.25);
-  top: -40px; left: -40px;
+  top: -40px;
+  left: -40px;
 }
+
 .blob-purple {
-  width: 200px; height: 200px;
+  width: 200px;
+  height: 200px;
   background: rgba(139, 92, 246, 0.2);
-  bottom: -30px; right: -30px;
+  bottom: -30px;
+  right: -30px;
 }
 
 /* Offset decorative border */
@@ -311,7 +359,7 @@ export default {
   left: -24px;
   width: 80px;
   height: 80px;
-  background-image: radial-gradient(circle, rgba(6,182,212,0.45) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle, rgba(6, 182, 212, 0.45) 1.5px, transparent 1.5px);
   background-size: 12px 12px;
   z-index: 0;
   pointer-events: none;
@@ -328,25 +376,28 @@ export default {
   border-radius: 20px;
   animation: float 6s ease-in-out infinite;
   /* Fade all four edges so the white background dissolves into the dark page */
-  mask-image: radial-gradient(
-    ellipse 82% 88% at 50% 38%,
-    black 45%,
-    rgba(0,0,0,0.9) 58%,
-    rgba(0,0,0,0.5) 72%,
-    transparent 90%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 82% 88% at 50% 38%,
-    black 45%,
-    rgba(0,0,0,0.9) 58%,
-    rgba(0,0,0,0.5) 72%,
-    transparent 90%
-  );
+  mask-image: radial-gradient(ellipse 82% 88% at 50% 38%,
+      black 45%,
+      rgba(0, 0, 0, 0.9) 58%,
+      rgba(0, 0, 0, 0.5) 72%,
+      transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 82% 88% at 50% 38%,
+      black 45%,
+      rgba(0, 0, 0, 0.9) 58%,
+      rgba(0, 0, 0, 0.5) 72%,
+      transparent 90%);
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-12px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
 }
 
 /* ── SOCIAL SIDEBAR ───────────────────────────────────── */
@@ -361,12 +412,19 @@ export default {
   gap: 0.75rem;
   z-index: 20;
 }
+
 .sidebar-line {
   width: 1px;
   height: 60px;
 }
-.sidebar-line--top  { background: linear-gradient(to bottom, transparent, rgba(6,182,212,0.4)); }
-.sidebar-line--bottom { background: linear-gradient(to bottom, rgba(6,182,212,0.4), transparent); }
+
+.sidebar-line--top {
+  background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.4));
+}
+
+.sidebar-line--bottom {
+  background: linear-gradient(to bottom, rgba(6, 182, 212, 0.4), transparent);
+}
 
 .social-icon-btn {
   display: flex;
@@ -376,18 +434,23 @@ export default {
   height: 36px;
   border-radius: 10px;
   color: #475569;
-  border: 1px solid rgba(255,255,255,0.07);
-  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
   text-decoration: none;
   transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
 }
+
 .social-icon-btn:hover {
   color: #22d3ee;
-  border-color: rgba(6,182,212,0.45);
-  background: rgba(6,182,212,0.08);
+  border-color: rgba(6, 182, 212, 0.45);
+  background: rgba(6, 182, 212, 0.08);
   transform: translateX(-3px);
 }
-.sidebar-icon { width: 17px; height: 17px; }
+
+.sidebar-icon {
+  width: 17px;
+  height: 17px;
+}
 
 /* ── RESPONSIVE ───────────────────────────────────────── */
 @media (max-width: 900px) {
@@ -396,12 +459,36 @@ export default {
     gap: 3rem;
     text-align: center;
   }
-  .hero-left { align-items: center; }
-  .hero-bio  { text-align: center; max-width: 520px; }
-  .hero-stats { justify-content: center; }
-  .hero-right { order: -1; }
-  .photo-frame { width: 260px; height: 330px; }
-  .hero-photo  { width: 260px; height: 330px; }
-  .social-sidebar { display: none; }
+
+  .hero-left {
+    align-items: center;
+  }
+
+  .hero-bio {
+    text-align: center;
+    max-width: 520px;
+  }
+
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .hero-right {
+    order: -1;
+  }
+
+  .photo-frame {
+    width: 260px;
+    height: 330px;
+  }
+
+  .hero-photo {
+    width: 260px;
+    height: 330px;
+  }
+
+  .social-sidebar {
+    display: none;
+  }
 }
 </style>

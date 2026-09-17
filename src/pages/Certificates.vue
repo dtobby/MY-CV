@@ -28,20 +28,20 @@
             </transition>
           </div>
 
-          <button @click="prevSlide" aria-label="Previous certificate"
+          <button v-if="activeImages.length > 1" @click="prevSlide" aria-label="Previous certificate"
             class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <button @click="nextSlide" aria-label="Next certificate"
+          <button v-if="activeImages.length > 1" @click="nextSlide" aria-label="Next certificate"
             class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </button>
 
-          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+          <div v-if="activeImages.length > 1" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
             <button v-for="(_, index) in activeImages" :key="index" @click="currentSlide = index"
               :aria-label="`Go to certificate ${index + 1}`"
               class="w-3 h-3 rounded-full transition-colors duration-300"
@@ -88,7 +88,7 @@ export default {
       currentSlide: 0,
       categories: [
         'Django', 'API', 'Database', 'Git', 'HTML & CSS',
-        'JavaScript', 'Data Science', 'Python', 'SAP', 'Vue.js', 'Odoo'
+        'JavaScript', 'Data Science', 'Python', 'SAP', 'Vue.js', 'Odoo', 'Network'
       ],
       imageMap: {
         Django: [
@@ -160,6 +160,9 @@ export default {
           require('@/assets/Odoo/certificate_of_odoo_Accounting_functional_implementation.jpg'),
           require('@/assets/Odoo/certificate_of_odostudio.jpg'),
         ],
+        Network: [
+          require('@/assets/Network/cisco_intro_cybersecurity.png'),
+        ],
       },
     }
   },
@@ -206,7 +209,8 @@ export default {
               img.onload = resolve
               img.onerror = reject
             })
-            doc.addImage(img, 'JPEG', 15, yOffset, 180, 100)
+            const fmt = this.activeImages[i].toLowerCase().includes('.png') ? 'PNG' : 'JPEG'
+            doc.addImage(img, fmt, 15, yOffset, 180, 100)
             yOffset += 110
             if (i < this.activeImages.length - 1) {
               doc.addPage()
