@@ -88,7 +88,7 @@ export default {
       currentSlide: 0,
       categories: [
         'Django', 'API', 'Database', 'Git', 'HTML & CSS',
-        'JavaScript', 'Data Science', 'Python', 'SAP', 'Vue.js', 'Odoo', 'Network'
+        'JavaScript', 'Data Science', 'Python', 'SAP', 'Vue.js', 'Odoo', 'Network', 'DevOps'
       ],
       imageMap: {
         Django: [
@@ -162,6 +162,10 @@ export default {
         ],
         Network: [
           require('@/assets/Network/cisco_intro_cybersecurity.png'),
+          require('@/assets/Network/Cisco Packet Tracer.png'),
+        ],
+        DevOps: [
+          require('@/assets/DevOps/Introduction_of_devops.png'),
         ],
       },
     }

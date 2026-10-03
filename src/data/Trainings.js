@@ -1,32 +1,43 @@
 export default [
   {
-    title: 'Introduction to Cybersecurity',
-    institution: 'Cisco Networking Academy',
-    period: 'July 2026'
+    title: "Introduction to DevOps",
+    institution: "Cisco Networking Academy",
+    period: "Oct 2026",
   },
   {
-    title: 'API Security Fundamental',
-    institution: 'APISEC University',
-    period: 'October 2025'
+    title: "Cisco Packet Tracer",
+    institution: "Cisco Networking Academy",
+    period: " sept 2026",
   },
   {
-    title: 'Microservices Web Application Development',
-    institution: 'DrukSmart',
-    period: 'September 2024'
+    title: "Introduction to Cybersecurity",
+    institution: "Cisco Networking Academy",
+    period: "July 2026",
   },
   {
-    title: 'MLOps in Practice: Developing, Deploying, Managing ML Models in Cloud Environments',
-    institution: 'GovTech-Omdena (Omdena School)',
-    period: 'Sept 2022 - March 2023'
+    title: "API Security Fundamental",
+    institution: "APISEC University",
+    period: "October 2025",
   },
   {
-    title: 'Essential Data Science Building Blocks Course',
-    institution: 'DHI-Omdena (Omdena School)',
-    period: 'Sept 2022 - March 2023'
+    title: "Microservices Web Application Development",
+    institution: "DrukSmart",
+    period: "September 2024",
   },
   {
-    title: 'IBM Data Analyst Professional Certificate',
-    institution: 'Desuung Skilling Programme (via Coursera/IBM)',
-    period: 'Sept 2022 - March 2023'
-  }
-]
+    title:
+      "MLOps in Practice: Developing, Deploying, Managing ML Models in Cloud Environments",
+    institution: "GovTech-Omdena (Omdena School)",
+    period: "Sept 2022 - March 2023",
+  },
+  {
+    title: "Essential Data Science Building Blocks Course",
+    institution: "DHI-Omdena (Omdena School)",
+    period: "Sept 2022 - March 2023",
+  },
+  {
+    title: "IBM Data Analyst Professional Certificate",
+    institution: "Desuung Skilling Programme (via Coursera/IBM)",
+    period: "Sept 2022 - March 2023",
+  },
+];
